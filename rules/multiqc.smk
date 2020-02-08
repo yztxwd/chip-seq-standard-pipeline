@@ -1,6 +1,6 @@
 rule multiqc:
     input:
-        units[['fq1', 'fq2']].values.flatten()[~pd.isnull(units['fq1', 'fq2'].values.flatten())]
+        units[['fq1', 'fq2']].values.flatten()[~pd.isnull(units[['fq1', 'fq2']].values.flatten())]
     output:
         "qc/multiqc/multiqc.html"
     params:
