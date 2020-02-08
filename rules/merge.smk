@@ -1,6 +1,6 @@
 rule merge_bam:
     input:
-        expand("mapped/{sample}-{unit}.F1804.filtered.bam", **wildcards, unit=units.loc[sample, 'unit'])
+        lambda wildcards: expand("mapped/{sample}-{unit}.F1804.filtered.bam", **wildcards, unit=units.loc[sample, 'unit'])
     output:
         "mapped/{sample}.merged.bam"
     params:
@@ -12,8 +12,8 @@ rule merge_bam:
 
 rule merge_bed:
     input:
-        coverage=expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit']),
-        midpoint=expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit'])
+        coverage=lambda wildcards: expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit']),
+        midpoint=lambda wildcards: expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit'])
     output:
         coverage="mapped/{sample}.merged.coverage.1b.bg",
         midpoint="mapped/{sample}.merged.coverage.1b.bg"
