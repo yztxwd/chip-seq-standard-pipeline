@@ -12,7 +12,7 @@ rule merge_bam:
 
 rule merge_bed:
     input:
-        coverage=expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit'])
+        coverage=expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit']),
         midpoint=expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit'])
     output:
         coverage="mapped/{sample}.merged.coverage.1b.bg"
