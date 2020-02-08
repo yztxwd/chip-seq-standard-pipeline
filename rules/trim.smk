@@ -1,6 +1,6 @@
 rule trim_pe:
     input:
-        r1=lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq1"]]
+        r1=lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq1"]],
         r2=lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq2"]]
     output:
         r1="trimmed/{sample}-{unit}.1.fq.gz",
@@ -8,7 +8,7 @@ rule trim_pe:
         r1_unpaired=temp("trimmed/{sample}-{unit}.1.unpaired.fq.gz"),
         r2_unpaired=temp("trimmed/{sample}-{unit}.2.unpaired.fq.gz")
     log:
-        "logs/{sample}.trimmomatic.log"
+        "logs/{sample}-{unit}.trimmomatic.log"
     params:
         trimmer=["LEADING:3", "TAILING:3", "SLIDINGWINDOW:4:15", "MINLEN:15"]
     threads:
@@ -22,7 +22,7 @@ rule trim_se:
     output:
         "trimmed/{sample}-{unit}.fastq.gz"
     log:
-        "logs/{sample}.trimmomatic.log"
+        "logs/{sample}-{unit}.trimmomatic.log"
     params:
         trimmer=["LEADING:3", "TAILING:3", "SLIDINGWINDOW:4:15", "MINLEN:15"]
     threads:

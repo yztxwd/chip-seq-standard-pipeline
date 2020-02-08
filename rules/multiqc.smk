@@ -1,9 +1,10 @@
 rule multiqc:
     input:
-        lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
+        lambda wildcards: df.values.dropna()
     output:
-        html="qc/fastqc/{sample}-{unit}_fastqc.html",
-        zip="qc/fastqc/{sample}-{unit}_fastqc.zip"
+        "qc/multiqc/multiqc.html"
+    params:
+        ""
     log:
         "logs/{sample}-{unit}.multiqc.log"
     wrapper:
