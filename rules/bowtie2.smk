@@ -1,3 +1,6 @@
+def is_single_end(sample, unit):
+    return pd.isnull(units.loc[(sample, unit), "fq2"])
+
 def get_fq(wildcards):
     if config["trimming"]["skip"]:
         # no trimming, use raw reads
