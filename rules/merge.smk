@@ -13,10 +13,10 @@ rule merge_bam:
 rule merge_bed:
     input:
         coverage=lambda wildcards: expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit']),
-        midpoint=lambda wildcards: expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit'])
+        midpoint=lambda wildcards: expand("mapped/{sample}-{unit}.midpoint.1b.bg", **wildcards, unit=units.loc[sample, 'unit'])
     output:
         coverage="mapped/{sample}.merged.coverage.1b.bg",
-        midpoint="mapped/{sample}.merged.coverage.1b.bg"
+        midpoint="mapped/{sample}.merged.midpoint.1b.bg"
     shell:
         """
         cat {input.coverage} > {output.coverage}
