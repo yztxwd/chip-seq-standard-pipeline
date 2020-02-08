@@ -9,7 +9,7 @@ def get_fq(wildcards):
         # yes trimming, use trimmed reads
         if not is_single_end(**wildcards):
             # paired-end sample
-            return expand("trimmed/{sample}-{unit}.{num}.fastq.gz",
+            return expand("trimmed/{sample}-{unit}.{num}.fq.gz",
                             num=[1, 2], **wildcards)
         # single end sample
         return "trimmed/{sample}-{unit}.fastq.gz".format(**wildcards)

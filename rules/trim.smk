@@ -20,7 +20,7 @@ rule trim_se:
     input:
         lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
     output:
-        "trimmed/{sample}-{unit}.fastq.gz"
+        "trimmed/{sample}-{unit, [^.]}.fq.gz"
     log:
         "logs/{sample}-{unit}.trimmomatic.log"
     params:
