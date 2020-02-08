@@ -1,6 +1,6 @@
 rule multiqc:
     input:
-        units.values.dropna()
+        units.dropna()
     output:
         "qc/multiqc/multiqc.html"
     params:
