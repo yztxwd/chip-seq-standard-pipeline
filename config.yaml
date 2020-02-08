@@ -1,0 +1,18 @@
+# path or URL to sample sheet (TSV format, columns: sample, condition, ...)
+samples: samples.tsv
+# path or URL to sequencing unit sheet (TSV format, columns: sample, unit, fq1, fq2, strandedness).
+# Units are techinical replicates (e.g. lanes, or resequencing of the same biological sample). If the 
+# column "strandedness" is present (optional), value can be empty or has one of these values: none, yes
+# or reverse.
+units: units.tsv
+
+trimming:
+  # skip trimming: false or true
+  skip: false
+  # the sequencing adapter
+  adapter:
+
+ref:
+  # the bowtie2 index
+  index: "path/to/bowtie2/index"
+
