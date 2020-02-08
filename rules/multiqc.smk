@@ -1,6 +1,6 @@
 rule multiqc:
     input:
-        units.dropna()
+        units.values.flatten()[~pd.isnull(units.values.flatten())]
     output:
         "qc/multiqc/multiqc.html"
     params:
