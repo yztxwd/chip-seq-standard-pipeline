@@ -12,7 +12,7 @@ def get_fq(wildcards):
             return expand("trimmed/{sample}-{unit}.{num}.fq.gz",
                             num=[1, 2], **wildcards)
         # single end sample
-        return "trimmed/{sample}-{unit}.fastq.gz".format(**wildcards)
+        return "trimmed/{sample}-{unit}.fq.gz".format(**wildcards)
 
 rule bowtie2_mapping:
     input:
