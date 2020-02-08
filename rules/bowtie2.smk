@@ -18,7 +18,7 @@ rule bowtie2_mapping:
     input:
         sample=get_fq
     output:
-        "mapped/{sample}-{unit}.bam"
+        "mapped/{sample}-{unit, [^.]+}.bam"
     log:
         "logs/bowtie2/{sample}-{unit}.log"
     params:
