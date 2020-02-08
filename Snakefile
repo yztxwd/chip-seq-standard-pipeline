@@ -21,6 +21,7 @@ units.index = units.index.set_levels([i.astype(str) for i in units.index.levels]
 rule all:
     input:
         "qc/multiqc/multiqc.html"
+        expand("mapped/{sample}.bam", sample=samples['sample'])
 
 #### setup singularity ####
 
