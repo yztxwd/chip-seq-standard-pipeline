@@ -1,4 +1,4 @@
 sample	unit	fq1	fq2
-A	lane1	A.1.fq.gz	A.2.fq.gz
-A	lane2	A.2.fq.gz
-B	rep1	B.1.fq.gz	B.2.fq.gz
+A	lane1	data/A.1.fq.gz	data/A.2.fq.gz
+A	lane2	data/A.2.fq.gz
+B	rep1	data/B.1.fq.gz	data/B.2.fq.gz
