@@ -6,6 +6,6 @@ rule multiqc:
     params:
         ""
     log:
-        "logs/{sample}-{unit}.multiqc.log"
+        "logs/multiqc.log"
     wrapper:
         "0.49.0/bio/fastqc"
