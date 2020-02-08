@@ -15,7 +15,7 @@ rule merge_bed:
         coverage=expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit']),
         midpoint=expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[sample, 'unit'])
     output:
-        coverage="mapped/{sample}.merged.coverage.1b.bg"
+        coverage="mapped/{sample}.merged.coverage.1b.bg",
         midpoint="mapped/{sample}.merged.coverage.1b.bg"
     shell:
         """
