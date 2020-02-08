@@ -1,0 +1,6 @@
+Wildcard constraints in inputs are ignored.
+Wildcard constraints in inputs are ignored.
+NameError in line 3 of /data1/yztxwd/Github/snakemake-pipeline/rules/merge.smk:
+name 'wildcards' is not defined
+  File "/data1/yztxwd/Github/snakemake-pipeline/Snakefile", line 42, in <module>
+  File "/data1/yztxwd/Github/snakemake-pipeline/rules/merge.smk", line 3, in <module>

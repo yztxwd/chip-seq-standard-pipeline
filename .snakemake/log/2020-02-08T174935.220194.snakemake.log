@@ -1,0 +1,5 @@
+Building DAG of jobs...
+InputFunctionException in line 17 of /data1/yztxwd/Github/snakemake-pipeline/rules/bowtie2.smk:
+TypeError: is_single_end() missing 1 required positional argument: 'unit'
+Wildcards:
+sample=A

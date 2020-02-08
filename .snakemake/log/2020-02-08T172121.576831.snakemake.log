@@ -1,0 +1,4 @@
+AttributeError in line 3 of /data1/yztxwd/Github/snakemake-pipeline/rules/multiqc.smk:
+'numpy.ndarray' object has no attribute 'dropna'
+  File "/data1/yztxwd/Github/snakemake-pipeline/Snakefile", line 35, in <module>
+  File "/data1/yztxwd/Github/snakemake-pipeline/rules/multiqc.smk", line 3, in <module>

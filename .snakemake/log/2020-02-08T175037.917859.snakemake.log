@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in line 21 of /data1/yztxwd/Github/snakemake-pipeline/Snakefile:
+Missing input files for rule all:
+mapped/B.bam
+mapped/A.bam

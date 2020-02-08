@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in line 1 of /data1/yztxwd/Github/snakemake-pipeline/rules/multiqc.smk:
+Missing input files for rule multiqc:
+sample
+unit
+fq2
+fq1

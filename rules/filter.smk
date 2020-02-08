@@ -20,10 +20,10 @@ rule samtools_sort:
 
 rule mapq_filter:
     input:
-        "mapped/{sample}-{unit, [^.]+}.F1804.sort.bam"
+        "mapped/{sample}-{unit}.F1804.sort.bam"
     output:
-        "mapped/{sample}-{unit, [^.]+}.F1804.filtered.bam"
-        "mapped/{sample}-{unit, [^.]+}.coverage.1b.bg"
+        "mapped/{sample}-{unit, [^.]+}.F1804.filtered.bam",
+        "mapped/{sample}-{unit, [^.]+}.coverage.1b.bg",
         "mapped/{sample}-{unit, [^.]+}.midpoint.1b.bg"
     params:
         "-m pair -f 0 -s 0 -t 20"
@@ -34,7 +34,7 @@ rule mapq_filter:
 
 rule samtools_flagstat:
     input:
-        "mapped/{smaple}-{unit, [^.]+}.F1804.filtered.bam"
+        "mapped/{smaple}-{unit}.F1804.filtered.bam"
     output:
         "summary/{sample}-{unit, [^.]+}.flagstat"
     wrapper:
