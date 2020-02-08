@@ -1,6 +1,6 @@
 rule multiqc:
     input:
-        lambda wildcards: df.values.dropna()
+        units.values.dropna()
     output:
         "qc/multiqc/multiqc.html"
     params:
