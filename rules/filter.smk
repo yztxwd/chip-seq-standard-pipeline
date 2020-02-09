@@ -30,9 +30,9 @@ rule mapq_filter:
         lambda wildcards: (config["filter"]["se"] if is_single_end(wildcards.sample, wildcards.unit) 
             else config["filter"]["pe"]) 
     conda:
-        "envs/py3.yaml"
+        "../envs/py3.yaml"
     script:
-        "scripts/reads_filter_smk.py"
+        "../scripts/reads_filter_smk.py"
 
 rule samtools_flagstat:
     input:
