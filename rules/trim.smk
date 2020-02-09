@@ -10,9 +10,9 @@ rule trim_pe:
     log:
         "logs/{sample}-{unit}.trimmomatic.log"
     params:
-        trimmer=["LEADING:3", "TAILING:3", "SLIDINGWINDOW:4:15", "MINLEN:15"]
+        trimmer=[config["trimmomatic"]["trimmer"], config["trimmomatic"]["adapter"]]
     threads:
-        32
+        config["threads"]
     wrapper:
         "0.49.0/bio/trimmomatic/pe"
 
@@ -24,9 +24,9 @@ rule trim_se:
     log:
         "logs/{sample}-{unit}.trimmomatic.log"
     params:
-        trimmer=["LEADING:3", "TAILING:3", "SLIDINGWINDOW:4:15", "MINLEN:15"]
+        trimmer=[config["trimmomatic"]["trimmer"], config["trimmomatic"]["adapter"]]
     threads:
-        32
+        config["threads"]
     wrapper:
         "0.49.0/bio/trimmomatic/se"
 

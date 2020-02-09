@@ -1,6 +1,3 @@
-def is_single_end(sample, unit):
-    return pd.isnull(units.loc[(sample, unit), "fq2"])
-
 def get_fq(wildcards):
     if config["trimming"]["skip"]:
         # no trimming, use raw reads
@@ -22,9 +19,9 @@ rule bowtie2_mapping:
     log:
         "logs/bowtie2/{sample}-{unit}.log"
     params:
-        index="index/genome",
-        extra=""
+        index=config["bowtie2"]["index"],
+        extra=config["bowtie2"]["extra"]
     threads: 
-        32
+        config["threads"]
     wrapper:
         "0.49.0/bio/bowtie2/align"

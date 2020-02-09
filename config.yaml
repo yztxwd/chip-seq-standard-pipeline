@@ -6,13 +6,21 @@ samples: samples.tsv
 # or reverse.
 units: units.tsv
 
-trimming:
+threads: 32
+
+trimmomatic:
   # skip trimming: false or true
   skip: false
-  # the sequencing adapter
-  adapter:
+  # the trimming parameter, see manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
+  trimmer: "LEADING:3 TAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
+  adapter: "path/to/adapter.fq:2:30:10"
 
-ref:
+bowtie2:
   # the bowtie2 index
   index: "path/to/bowtie2/index"
+  # extra parameters, see manual: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
+  extra: ""
 
+filter:
+  # parameters
+  params: "-m pair -f 0 -s 0 -t 20"
