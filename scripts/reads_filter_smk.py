@@ -2,7 +2,6 @@
 import sys, pysam
 import pandas as pd
 import numpy as np
-import numpyArrayDict as nad
 
 from optparse import OptionParser, IndentedHelpFormatter
 
