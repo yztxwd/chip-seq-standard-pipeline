@@ -1,0 +1,6 @@
+Building DAG of jobs...
+InputFunctionException in line 14 of /data1/yztxwd/Github/snakemake-pipeline/rules/bowtie2.smk:
+NameError: name 'is_single_end' is not defined
+Wildcards:
+sample=A
+unit=lane1

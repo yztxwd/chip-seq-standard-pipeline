@@ -1,5 +1,5 @@
 def get_fq(wildcards):
-    if config["trimming"]["skip"]:
+    if config["trimmomatic"]["skip"]:
         # no trimming, use raw reads
         return units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
     else:

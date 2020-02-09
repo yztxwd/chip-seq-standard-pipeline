@@ -35,6 +35,7 @@ singularity: "docker://continuumio/miniconda3"
 report: "report/workflow.rst"
 
 #### load rules ####
+include: "rules/global.smk"
 include: "rules/multiqc.smk"
 include: "rules/trim.smk"
 include: "rules/bowtie2.smk"
