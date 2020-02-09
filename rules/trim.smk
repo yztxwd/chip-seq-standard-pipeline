@@ -1,7 +1,7 @@
 rule trim_pe:
     input:
-        r1=lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq1"]],
-        r2=lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq2"]]
+        r1=lambda wildcards: "data/" + units.loc[(wildcards.sample, wildcards.unit), "fq1"],
+        r2=lambda wildcards: "data/" + units.loc[(wildcards.sample, wildcards.unit), "fq2"]
     output:
         r1="trimmed/{sample}-{unit}.1.fq.gz",
         r2="trimmed/{sample}-{unit}.2.fq.gz",
@@ -10,7 +10,7 @@ rule trim_pe:
     log:
         "logs/{sample}-{unit}.trimmomatic.log"
     params:
-        trimmer=[config["trimmomatic"]["trimmer"], config["trimmomatic"]["adapter"]]
+        trimmer=[config["trimmomatic"]["trimmer"], "ILLUMINACLIP:"config["trimmomatic"]["adapter"]]
     threads:
         config["threads"]
     wrapper:
@@ -18,13 +18,13 @@ rule trim_pe:
 
 rule trim_se:
     input:
-        lambda wildcards: units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
+        lambda wildcards: "data/" + units.loc[(wildcards.sample, wildcards.unit), "fq1"]
     output:
         "trimmed/{sample}-{unit, [^.]+}.fq.gz"
     log:
         "logs/{sample}-{unit}.trimmomatic.log"
     params:
-        trimmer=[config["trimmomatic"]["trimmer"], config["trimmomatic"]["adapter"]]
+        trimmer=[config["trimmomatic"]["trimmer"], "ILLUMINACLIP:"config["trimmomatic"]["adapter"]]
     threads:
         config["threads"]
     wrapper:

@@ -1,7 +1,7 @@
 def get_fq(wildcards):
     if config["trimmomatic"]["skip"]:
         # no trimming, use raw reads
-        return units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
+        return "data/" + units.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
     else:
         # yes trimming, use trimmed reads
         if not is_single_end(**wildcards):
@@ -9,7 +9,7 @@ def get_fq(wildcards):
             return expand("trimmed/{sample}-{unit}.{num}.fq.gz",
                             num=[1, 2], **wildcards)
         # single end sample
-        return "trimmed/{sample}-{unit}.fq.gz".format(**wildcards)
+        return ["trimmed/{sample}-{unit}.fq.gz".format(**wildcards)]
 
 rule bowtie2_mapping:
     input:

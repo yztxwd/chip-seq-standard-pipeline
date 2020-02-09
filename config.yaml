@@ -15,7 +15,7 @@ trimmomatic:
   # skip trimming: false or true
   skip: false
   # the trimming parameter, see manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
-  trimmer: "LEADING:3 TAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
+  trimmer: "LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
   adapter: "path/to/adapter.fq:2:30:10"
 
 bowtie2:
@@ -26,8 +26,8 @@ bowtie2:
 
 samtools_view:
   # flag used to filter
-  pe: "-@ 32 -F 1804 -b"
-  se: "-@ 32 -F 1796 -b"
+  pe: "-F 1804 -b"
+  se: "-F 1796 -b"
 
 filter:
   # parameters
