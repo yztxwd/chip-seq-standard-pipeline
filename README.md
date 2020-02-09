@@ -33,4 +33,4 @@ It is written by [Snakemake](https://snakemake.readthedocs.io/en/stable/index.ht
 # DAG
 
 The DAG of this pipeline is as follows
-![example](dag.png)
+![DAG](https://github.com/yztxwd/snakemake-pipeline/raw/master/dag.png)
