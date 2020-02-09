@@ -1,5 +1,0 @@
-Wildcard constraints in inputs are ignored.
-Wildcard constraints in inputs are ignored.
-SyntaxError in line 19 of /data1/yztxwd/Github/snakemake-pipeline/rules/merge.smk:
-invalid syntax
-  File "/data1/yztxwd/Github/snakemake-pipeline/Snakefile", line 42, in <module>

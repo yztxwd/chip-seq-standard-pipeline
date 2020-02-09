@@ -1,4 +1,0 @@
-SyntaxError:
-Not all output, log and benchmark files of rule multiqc contain the same wildcards. This is crucial though, in order to avoid that two or more jobs write to the same file.
-  File "/data1/yztxwd/Github/snakemake-pipeline/Snakefile", line 35, in <module>
-  File "/data1/yztxwd/Github/snakemake-pipeline/rules/multiqc.smk", line 11, in <module>

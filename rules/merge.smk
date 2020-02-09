@@ -1,8 +1,8 @@
 rule merge_bam:
     input:
-        lambda wildcards: expand("mapped/{sample}-{unit}.flag.filtered.bam", **wildcards, unit=units.loc[wildcards.sample, 'unit'])
+        lambda wildcards: expand("output/mapped/{sample}-{unit}.flag.filtered.bam", **wildcards, unit=units.loc[wildcards.sample, 'unit'])
     output:
-        "mapped/{sample}.merged.bam"
+        "output/mapped/{sample}.merged.bam"
     params:
         "-n"
     threads:
@@ -12,11 +12,11 @@ rule merge_bam:
 
 rule merge_bed:
     input:
-        coverage=lambda wildcards: expand("mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[wildcards.sample, 'unit']),
-        midpoint=lambda wildcards: expand("mapped/{sample}-{unit}.midpoint.1b.bg", **wildcards, unit=units.loc[wildcards.sample, 'unit'])
+        coverage=lambda wildcards: expand("output/mapped/{sample}-{unit}.coverage.1b.bg", **wildcards, unit=units.loc[wildcards.sample, 'unit']),
+        midpoint=lambda wildcards: expand("output/mapped/{sample}-{unit}.midpoint.1b.bg", **wildcards, unit=units.loc[wildcards.sample, 'unit'])
     output:
-        coverage="mapped/{sample}.merged.coverage.1b.bg",
-        midpoint="mapped/{sample}.merged.midpoint.1b.bg"
+        coverage="output/mapped/{sample}.merged.coverage.1b.bg",
+        midpoint="output/mapped/{sample}.merged.midpoint.1b.bg"
     shell:
         """
         cat {input.coverage} > {output.coverage}

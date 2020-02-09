@@ -6,7 +6,7 @@ rule fastqc:
         zip="qc/fastqc/{sample}_fastqc.zip"
     params: ""
     log:
-        "logs/{sample}.fastqc.log"
+        "logs/fastqc/{sample}.fastqc.log"
     wrapper:
         "0.49.0/bio/fastqc"  
 
@@ -18,6 +18,6 @@ rule multiqc:
     params:
         config["multiqc"]["params"]
     log:
-        "logs/multiqc.log"
+        "logs/multiqc/multiqc.log"
     wrapper:
         "0.49.0/bio/multiqc"
