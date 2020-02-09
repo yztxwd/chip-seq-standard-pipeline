@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys, pysam
+import sys, pysam, re
 import pandas as pd
 import numpy as np
 
@@ -39,7 +39,8 @@ parser.add_option('-m', '--mode', dest='mode', help="single/pair end mode")
 parser.add_option('-f', '--fragment-size', dest='fragment', help="fragment size threshold for paired-end reads, keep reads < threshold")
 parser.add_option('-s', '--shit-size', dest='shift', help="'shift single end reads along 5'-3'")
 parser.add_option('-t', '--mapq-threshold', dest='threshold', help="MAPQ threshold to filter reads")
-option, argument = parser.parse_args(snakemake.params)
+pattern = re.compile("[ ]+")
+option, argument = parser.parse_args(pattern.split(str(snakemake.params)))
 
 #Read in snakemake parameters
 input = snakemake.input[0]
