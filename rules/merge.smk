@@ -1,12 +1,12 @@
 rule merge_bam:
     input:
-        lambda wildcards: expand("mapped/{sample}-{unit}.F1804.filtered.bam", **wildcards, unit=units.loc[wildcards.sample, 'unit'])
+        lambda wildcards: expand("mapped/{sample}-{unit}.flag.filtered.bam", **wildcards, unit=units.loc[wildcards.sample, 'unit'])
     output:
         "mapped/{sample}.merged.bam"
     params:
         "-n"
     threads:
-        32
+        config['threads']
     wrapper:
         "0.49.0/bio/samtools/merge"
 

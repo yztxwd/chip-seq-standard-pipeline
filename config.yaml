@@ -8,6 +8,9 @@ units: units.tsv
 
 threads: 32
 
+multiqc:
+  params: ""
+
 trimmomatic:
   # skip trimming: false or true
   skip: false
@@ -21,6 +24,14 @@ bowtie2:
   # extra parameters, see manual: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
   extra: ""
 
+samtools_view:
+  # flag used to filter
+  pe: "-@ 32 -F 1804 -b"
+  se: "-@ 32 -F 1796 -b"
+
 filter:
   # parameters
-  params: "-m pair -f 0 -s 0 -t 20"
+  pe: "-m pair -f 0 -s 0 -t 20"
+  se: "-m single -f 0 -s 0 -t 20"
+
+
