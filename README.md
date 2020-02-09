@@ -28,7 +28,7 @@ This pipeline aims for standard ChIP-seq fastq files handling, which consists of
     - multiqc report
     - fragment size frequency report
 
-It is written by [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html), which is a very powerful workflow management system, also the basic framework is from [rna-seq-star-deseq2](https://github.com/snakemake-workflows/rna-seq-star-deseq2).
+It is written by [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html), which is a very powerful workflow management system, the basic framework is from [rna-seq-star-deseq2](https://github.com/snakemake-workflows/rna-seq-star-deseq2).
 
 # DAG
 
