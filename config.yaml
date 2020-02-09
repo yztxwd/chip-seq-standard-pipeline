@@ -16,7 +16,7 @@ trimmomatic:
   skip: false
   # the trimming parameter, see manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
   trimmer: "LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
-  adapter: "path/to/adapter.fq:2:30:10"
+  adapter: "ILLUMINACLIP:path/to/adapter.fq:2:30:10"
 
 bowtie2:
   # the bowtie2 index

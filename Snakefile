@@ -20,9 +20,9 @@ units.index = units.index.set_levels([i.astype(str) for i in units.index.levels]
 
 rule all:
     input:
-        "qc/multiqc/multiqc.html",
-        expand("mapped/{samples.sample}.merged.bam", samples=samples.itertuples()),
-        expand("summary/{samples.sample}.size.freq", samples=samples.itertuples())
+        "output/qc/multiqc/multiqc.html",
+        expand("output/mapped/{samples.sample}.merged.bam", samples=samples.itertuples()),
+        expand("output/qc/size/{samples.sample}.size.freq", samples=samples.itertuples())
 
 
 #### setup singularity ####

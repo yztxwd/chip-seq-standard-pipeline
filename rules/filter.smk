@@ -38,6 +38,6 @@ rule samtools_flagstat:
     input:
         "output/mapped/{smaple}-{unit}.flag.filtered.bam"
     output:
-        "summary/flagstat/{sample}-{unit, [^.]+}.flagstat"
+        "qc/flagstat/{sample}-{unit, [^.]+}.flagstat"
     wrapper:
         "0.49.0/bio/samtools/flagstat"

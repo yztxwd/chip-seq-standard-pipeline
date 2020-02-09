@@ -1,8 +1,8 @@
 rule count_size:
     input:
-        "mapped/{sample}.merged.coverage.1b.bg"
+        "output/mapped/{sample}.merged.coverage.1b.bg"
     output:
-        "summary/{sample}.size.freq"
+        "qc/size/{sample}.size.freq"
     conda:
         "envs/py3.yaml"
     script:

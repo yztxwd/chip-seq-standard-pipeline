@@ -17,7 +17,7 @@ rule bowtie2_mapping:
     output:
         temp("output/mapped/{sample}-{unit, [^.]+}.bam")
     log:
-        "logs/bowtie2/{sample}-{unit}.log"
+        "output/logs/bowtie2/{sample}-{unit}.log"
     params:
         index=config["bowtie2"]["index"],
         extra=config["bowtie2"]["extra"]
