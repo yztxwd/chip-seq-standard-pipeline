@@ -12,7 +12,7 @@ configfile: "config.yaml"
 #samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
 #validate(samples, schema="schemas/samples.schema.yaml")
 
-units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
+units = pd.read_table(config["units"], dtype=str).set_index(["sample", "replicate", "unit"], drop=False)
 units.index = units.index.set_levels([i.astype(str) for i in units.index.levels])
 #validate(units, schema="schemas/units.schema.yaml")
 
