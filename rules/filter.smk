@@ -1,8 +1,8 @@
 rule samtools_view:
     input:
-        "output/mapped/{sample}-{replicate}-{unit}.bam"
+        "output/mapped/{sample}-{unit}.bam"
     output:
-        temp("output/mapped/{sample}-{replicate}-{unit, [^.]+}.flag.bam")
+        temp("output/mapped/{sample}-{unit, [^.]+}.flag.bam")
     params:
         lambda wildcards: (config["samtools_view"]["se"] if is_single_end(wildcards.sample, wildcards.replicate, wildcards.unit) 
             else config["samtools_view"]["pe"]) + " -@ " + str(config["threads"])
@@ -11,9 +11,9 @@ rule samtools_view:
 
 rule samtools_sort:
     input:
-        "output/mapped/{sample}-{replicate}-{unit}.flag.bam"
+        "output/mapped/{sample}-{unit}.flag.bam"
     output:
-        temp("output/mapped/{sample}-{replicate}-{unit, [^.]+}.flag.sort.bam")
+        temp("output/mapped/{sample}-{unit, [^.]+}.flag.sort.bam")
     params:
         "-@ " + str(config["threads"])
     wrapper:
@@ -21,11 +21,11 @@ rule samtools_sort:
 
 rule mapq_filter:
     input:
-        "output/mapped/{sample}-{replicate}-{unit}.flag.sort.bam"
+        "output/mapped/{sample}-{unit}.flag.sort.bam"
     output:
-        temp("output/mapped/{sample}-{replicate}-{unit, [^.]+}.flag.filtered.bam"),
-        temp("output/mapped/{sample}-{replicate}-{unit, [^.]+}.coverage.1b.bg"),
-        temp("output/mapped/{sample}-{replicate}-{unit, [^.]+}.midpoint.1b.bg")
+        temp("output/mapped/{sample}-{unit, [^.]+}.flag.filtered.bam"),
+        temp("output/mapped/{sample}-{unit, [^.]+}.coverage.1b.bg"),
+        temp("output/mapped/{sample}-{unit, [^.]+}.midpoint.1b.bg")
     params:
         lambda wildcards: (config["filter"]["se"] if is_single_end(wildcards.sample, wildcards.replicate, wildcards.unit) 
             else config["filter"]["pe"]) 

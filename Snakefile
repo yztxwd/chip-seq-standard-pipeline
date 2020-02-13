@@ -9,10 +9,10 @@ min_version("5.1.2")
 configfile: "config.yaml"
 #validate(config, schema="schemas/config.schema.yaml")
 
-#samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
+samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
 #validate(samples, schema="schemas/samples.schema.yaml")
 
-units = pd.read_table(config["units"], dtype=str).set_index(["sample", "replicate", "unit"], drop=False)
+units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
 units.index = units.index.set_levels([i.astype(str) for i in units.index.levels])
 #validate(units, schema="schemas/units.schema.yaml")
 
@@ -22,7 +22,8 @@ rule all:
     input:
         "output/qc/multiqc/multiqc.html",
         expand("output/mapped/{samples}.merged.bam", samples=(units['sample'] + "-" + units['replicate']).unique()),
-        expand("output/qc/size/{samples}.size.freq", samples=(units['sample'] + "-" + units['replicate']).unique())
+        expand("output/qc/size/{samples}.size.freq", samples=(units['sample'] + "-" + units['replicate']).unique()),
+        expand("output/macs/{samples}_peaks.narrowPeak", samples=samples.loc[samples["condition"]=="treatment", "sample"])
 
 #### setup singularity ####
 
