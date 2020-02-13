@@ -1,0 +1,268 @@
+Building DAG of jobs...
+Job counts:
+	count	jobs
+	1	all
+	4	bowtie2_mapping
+	2	count_size
+	4	fastqc
+	1	macs2
+	4	mapq_filter
+	2	merge_bam
+	2	merge_bed
+	1	multiqc
+	4	samtools_sort
+	4	samtools_view
+	3	trim_pe
+	1	trim_se
+	33
+
+[Thu Feb 13 13:36:03 2020]
+rule fastqc:
+    input: data/A.1.fq.gz
+    output: output/qc/fastqc/A.1_fastqc.html, output/qc/fastqc/A.1_fastqc.zip
+    log: output/logs/fastqc/A.1.fastqc.log
+    jobid: 7
+    wildcards: sample=A.1
+
+[Thu Feb 13 13:36:03 2020]
+rule fastqc:
+    input: data/A.2.fq.gz
+    output: output/qc/fastqc/A.2_fastqc.html, output/qc/fastqc/A.2_fastqc.zip
+    log: output/logs/fastqc/A.2.fastqc.log
+    jobid: 8
+    wildcards: sample=A.2
+
+[Thu Feb 13 13:36:03 2020]
+rule fastqc:
+    input: data/B.1.fq.gz
+    output: output/qc/fastqc/B.1_fastqc.html, output/qc/fastqc/B.1_fastqc.zip
+    log: output/logs/fastqc/B.1.fastqc.log
+    jobid: 9
+    wildcards: sample=B.1
+
+[Thu Feb 13 13:36:03 2020]
+rule trim_pe:
+    input: data/A.1.fq.gz, data/A.2.fq.gz
+    output: output/trimmed/A-tech1.1.fq.gz, output/trimmed/A-tech1.2.fq.gz, output/trimmed/A-tech1.1.unpaired.fq.gz, output/trimmed/A-tech1.2.unpaired.fq.gz
+    log: output/logs/trimmomatic/A-tech1.trimmomatic.log
+    jobid: 31
+    wildcards: sample=A, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule fastqc:
+    input: data/B.2.fq.gz
+    output: output/qc/fastqc/B.2_fastqc.html, output/qc/fastqc/B.2_fastqc.zip
+    log: output/logs/fastqc/B.2.fastqc.log
+    jobid: 10
+    wildcards: sample=B.2
+
+[Thu Feb 13 13:36:03 2020]
+rule trim_pe:
+    input: data/A.1.fq.gz, data/A.2.fq.gz
+    output: output/trimmed/A-lane1.1.fq.gz, output/trimmed/A-lane1.2.fq.gz, output/trimmed/A-lane1.1.unpaired.fq.gz, output/trimmed/A-lane1.2.unpaired.fq.gz
+    log: output/logs/trimmomatic/A-lane1.trimmomatic.log
+    jobid: 29
+    wildcards: sample=A, unit=lane1
+
+[Thu Feb 13 13:36:03 2020]
+rule trim_se:
+    input: data/A.2.fq.gz
+    output: output/trimmed/A-lane2.fq.gz
+    log: output/logs/trimmomatic/A-lane2.trimmomatic.log
+    jobid: 30
+    wildcards: sample=A, unit=lane2
+
+[Thu Feb 13 13:36:03 2020]
+rule trim_pe:
+    input: data/B.1.fq.gz, data/B.2.fq.gz
+    output: output/trimmed/B-tech1.1.fq.gz, output/trimmed/B-tech1.2.fq.gz, output/trimmed/B-tech1.1.unpaired.fq.gz, output/trimmed/B-tech1.2.unpaired.fq.gz
+    log: output/logs/trimmomatic/B-tech1.trimmomatic.log
+    jobid: 32
+    wildcards: sample=B, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule multiqc:
+    input: output/qc/fastqc/A.1_fastqc.html, output/qc/fastqc/A.2_fastqc.html, output/qc/fastqc/A.2_fastqc.html, output/qc/fastqc/A.1_fastqc.html, output/qc/fastqc/A.2_fastqc.html, output/qc/fastqc/B.1_fastqc.html, output/qc/fastqc/B.2_fastqc.html
+    output: output/qc/multiqc/multiqc.html
+    log: output/logs/multiqc/multiqc.log
+    jobid: 1
+
+[Thu Feb 13 13:36:03 2020]
+rule bowtie2_mapping:
+    input: output/trimmed/A-tech1.1.fq.gz, output/trimmed/A-tech1.2.fq.gz
+    output: output/mapped/A-tech1.bam
+    log: output/logs/bowtie2/A-tech1.log
+    jobid: 27
+    wildcards: sample=A, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule bowtie2_mapping:
+    input: output/trimmed/A-lane1.1.fq.gz, output/trimmed/A-lane1.2.fq.gz
+    output: output/mapped/A-lane1.bam
+    log: output/logs/bowtie2/A-lane1.log
+    jobid: 25
+    wildcards: sample=A, unit=lane1
+
+[Thu Feb 13 13:36:03 2020]
+rule bowtie2_mapping:
+    input: output/trimmed/A-lane2.fq.gz
+    output: output/mapped/A-lane2.bam
+    log: output/logs/bowtie2/A-lane2.log
+    jobid: 26
+    wildcards: sample=A, unit=lane2
+
+[Thu Feb 13 13:36:03 2020]
+rule bowtie2_mapping:
+    input: output/trimmed/B-tech1.1.fq.gz, output/trimmed/B-tech1.2.fq.gz
+    output: output/mapped/B-tech1.bam
+    log: output/logs/bowtie2/B-tech1.log
+    jobid: 28
+    wildcards: sample=B, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_view:
+    input: output/mapped/A-tech1.bam
+    output: output/mapped/A-tech1.flag.bam
+    jobid: 23
+    wildcards: sample=A, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_view:
+    input: output/mapped/A-lane1.bam
+    output: output/mapped/A-lane1.flag.bam
+    jobid: 21
+    wildcards: sample=A, unit=lane1
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_view:
+    input: output/mapped/A-lane2.bam
+    output: output/mapped/A-lane2.flag.bam
+    jobid: 22
+    wildcards: sample=A, unit=lane2
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_view:
+    input: output/mapped/B-tech1.bam
+    output: output/mapped/B-tech1.flag.bam
+    jobid: 24
+    wildcards: sample=B, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_sort:
+    input: output/mapped/A-lane1.flag.bam
+    output: output/mapped/A-lane1.flag.sort.bam
+    jobid: 17
+    wildcards: sample=A, unit=lane1
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_sort:
+    input: output/mapped/A-lane2.flag.bam
+    output: output/mapped/A-lane2.flag.sort.bam
+    jobid: 18
+    wildcards: sample=A, unit=lane2
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_sort:
+    input: output/mapped/A-tech1.flag.bam
+    output: output/mapped/A-tech1.flag.sort.bam
+    jobid: 19
+    wildcards: sample=A, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule samtools_sort:
+    input: output/mapped/B-tech1.flag.bam
+    output: output/mapped/B-tech1.flag.sort.bam
+    jobid: 20
+    wildcards: sample=B, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule mapq_filter:
+    input: output/mapped/A-lane2.flag.sort.bam
+    output: output/mapped/A-lane2.flag.filtered.bam, output/mapped/A-lane2.coverage.1b.bg, output/mapped/A-lane2.midpoint.1b.bg
+    jobid: 12
+    wildcards: sample=A, unit=lane2
+
+[Thu Feb 13 13:36:03 2020]
+rule mapq_filter:
+    input: output/mapped/B-tech1.flag.sort.bam
+    output: output/mapped/B-tech1.flag.filtered.bam, output/mapped/B-tech1.coverage.1b.bg, output/mapped/B-tech1.midpoint.1b.bg
+    jobid: 14
+    wildcards: sample=B, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule mapq_filter:
+    input: output/mapped/A-lane1.flag.sort.bam
+    output: output/mapped/A-lane1.flag.filtered.bam, output/mapped/A-lane1.coverage.1b.bg, output/mapped/A-lane1.midpoint.1b.bg
+    jobid: 11
+    wildcards: sample=A, unit=lane1
+
+[Thu Feb 13 13:36:03 2020]
+rule mapq_filter:
+    input: output/mapped/A-tech1.flag.sort.bam
+    output: output/mapped/A-tech1.flag.filtered.bam, output/mapped/A-tech1.coverage.1b.bg, output/mapped/A-tech1.midpoint.1b.bg
+    jobid: 13
+    wildcards: sample=A, unit=tech1
+
+[Thu Feb 13 13:36:03 2020]
+rule merge_bed:
+    input: output/mapped/B-tech1.coverage.1b.bg, output/mapped/B-tech1.midpoint.1b.bg
+    output: output/mapped/B.merged.coverage.1b.bg, output/mapped/B.merged.midpoint.1b.bg
+    jobid: 16
+    wildcards: sample=B
+
+
+        cat output/mapped/B-tech1.coverage.1b.bg > output/mapped/B.merged.coverage.1b.bg
+        cat output/mapped/B-tech1.midpoint.1b.bg > output/mapped/B.merged.midpoint.1b.bg
+        
+
+[Thu Feb 13 13:36:03 2020]
+rule merge_bam:
+    input: output/mapped/A-lane1.flag.filtered.bam, output/mapped/A-lane2.flag.filtered.bam, output/mapped/A-tech1.flag.filtered.bam
+    output: output/mapped/A.merged.bam
+    jobid: 2
+    wildcards: sample=A
+
+[Thu Feb 13 13:36:03 2020]
+rule merge_bed:
+    input: output/mapped/A-lane1.coverage.1b.bg, output/mapped/A-lane2.coverage.1b.bg, output/mapped/A-tech1.coverage.1b.bg, output/mapped/A-lane1.midpoint.1b.bg, output/mapped/A-lane2.midpoint.1b.bg, output/mapped/A-tech1.midpoint.1b.bg
+    output: output/mapped/A.merged.coverage.1b.bg, output/mapped/A.merged.midpoint.1b.bg
+    jobid: 15
+    wildcards: sample=A
+
+
+        cat output/mapped/A-lane1.coverage.1b.bg output/mapped/A-lane2.coverage.1b.bg output/mapped/A-tech1.coverage.1b.bg > output/mapped/A.merged.coverage.1b.bg
+        cat output/mapped/A-lane1.midpoint.1b.bg output/mapped/A-lane2.midpoint.1b.bg output/mapped/A-tech1.midpoint.1b.bg > output/mapped/A.merged.midpoint.1b.bg
+        
+
+[Thu Feb 13 13:36:03 2020]
+rule merge_bam:
+    input: output/mapped/B-tech1.flag.filtered.bam
+    output: output/mapped/B.merged.bam
+    jobid: 3
+    wildcards: sample=B
+
+[Thu Feb 13 13:36:03 2020]
+rule count_size:
+    input: output/mapped/B.merged.coverage.1b.bg
+    output: output/qc/size/B.size.freq
+    jobid: 5
+    wildcards: sample=B
+
+[Thu Feb 13 13:36:03 2020]
+rule count_size:
+    input: output/mapped/A.merged.coverage.1b.bg
+    output: output/qc/size/A.size.freq
+    jobid: 4
+    wildcards: sample=A
+
+[Thu Feb 13 13:36:03 2020]
+rule macs2:
+    input: output/mapped/A.merged.bam, output/mapped/B.merged.bam
+    output: output/macs2/A_peaks.narrowPeak
+    jobid: 6
+    wildcards: sample=A
+
+InputFunctionException in line 1 of /data1/yztxwd/Github/chip-seq-standard-pipeline/rules/macs2.smk:
+NameError: name 'df' is not defined
+Wildcards:
+sample=A

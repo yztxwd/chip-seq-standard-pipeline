@@ -1,0 +1,3 @@
+SyntaxError in line 4 of /data1/yztxwd/Github/chip-seq-standard-pipeline/rules/macs2.smk:
+invalid syntax
+  File "/data1/yztxwd/Github/chip-seq-standard-pipeline/Snakefile", line 45, in <module>

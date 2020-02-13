@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 1 of /data1/yztxwd/Github/chip-seq-standard-pipeline/rules/size.smk:
+Missing input files for rule count_size:
+output/mapped/A.merged.coverage.1b.bg

@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 21 of /data1/yztxwd/Github/chip-seq-standard-pipeline/Snakefile:
+Missing input files for rule all:
+output/macs/A_peaks.narrowPeak
