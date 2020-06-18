@@ -21,9 +21,9 @@ units.index = units.index.set_levels([i.astype(str) for i in units.index.levels]
 rule all:
     input:
         "output/qc/multiqc/multiqc.html",
-        expand("output/mapped/{samples}.merged.bam", samples=(units['sample']).unique()),
+#        expand("output/mapped/{samples}.merged.bam", samples=(units['sample']).unique()),
         expand("output/qc/size/{samples}.size.freq", samples=(units['sample']).unique()),
-        expand("output/macs2/{samples}_peaks.narrowPeak", samples=samples.loc[samples["condition"]=="treatment", "sample"])
+        expand("output/macs2/{samples}_peaks.narrowPeak", samples=samples.loc[samples["condition"]!="control", "sample"])
 
 #### setup singularity ####
 

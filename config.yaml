@@ -16,11 +16,11 @@ trimmomatic:
   skip: false
   # the trimming parameter, see manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
   trimmer: "LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
-  adapter: "ILLUMINACLIP:path/to/adapter.fq:2:30:10"
+  adapter: "ILLUMINACLIP:data/TruSeq3.fa:2:30:10"
 
 bowtie2:
   # the bowtie2 index
-  index: "path/to/bowtie2/index"
+  index: "/data1/yztxwd/Genome/mm10_ensembl/Index/Bowtie2/bowtie2"
   # extra parameters, see manual: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
   extra: ""
 
