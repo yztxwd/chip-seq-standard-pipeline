@@ -10,7 +10,7 @@ rule trim_pe:
     log:
         "output/logs/trimmomatic/{sample}-{unit}.trimmomatic.log"
     params:
-        trimmer=[config["trimmomatic"]["trimmer"], config["trimmomatic"]["adapter"]]
+        trimmer=[config["trimmomatic"]["adapter"], config["trimmomatic"]["trimmer"]]
     threads:
         config["threads"]
     wrapper:
@@ -24,7 +24,7 @@ rule trim_se:
     log:
         "output/logs/trimmomatic/{sample}-{unit}.trimmomatic.log"
     params:
-        trimmer=[config["trimmomatic"]["trimmer"], config["trimmomatic"]["adapter"]]
+        trimmer=[config["trimmomatic"]["adapter"], config["trimmomatic"]["trimmer"]]
     threads:
         config["threads"]
     wrapper:
