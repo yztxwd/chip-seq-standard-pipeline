@@ -15,7 +15,7 @@ rule samtools_sort:
     output:
         temp("output/mapped/{sample}-{unit, [^.]+}.flag.sort.bam")
     params:
-        "-@ " + str(config["threads"])
+        "-n -@ " + str(config["threads"])
     wrapper:
         "0.49.0/bio/samtools/sort"
 
