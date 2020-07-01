@@ -3,6 +3,7 @@
 
 import sys, os, re
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from collections import defaultdict
 from optparse import OptionParser, IndentedHelpFormatter
@@ -21,7 +22,8 @@ Example:
         input:
             "mapped/{sample}.merged.coverage.1b.bg"
         output:
-            "summary/{sample}.size.freq"
+            freq="summary/{sample}.size.freq"
+            png="summary/{sample}.size.png"
         conda:
             "envs/py3.yaml"
         script:
@@ -38,7 +40,8 @@ parser = OptionParser(description=description, formatter=CustomHelpFormatter())
 
 # load input and output from snakemake object
 coverage = snakemake.input[0]
-output = snakemake.output[0]
+freq = snakemake.output.freq
+png = snakemake.output.png
 
 # count the fragment size frequency
 store = defaultdict(lambda: 0)
@@ -49,7 +52,12 @@ with open(coverage, 'r') as f:
         store[end-start+1] += 1
 
 # save the fragment size frequency
-df = pd.DataFrame(store.values(), store.keys())
+df = pd.DataFrame(store.values(), store.keys()).sort_index()
 df.columns = [coverage]
 df.fillna(0)
-df.to_csv(output, sep='\t')
+df.to_csv(freq, sep='\t')
+
+# plot the frequency plot 
+plt.figure(figsize=(15, 15))
+plt.plot(list(df.index), list(df[coverage]))
+plt.savefig(png, dpi=300)
