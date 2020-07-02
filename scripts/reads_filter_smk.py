@@ -55,11 +55,8 @@ prefix = output.split(".")[0]	# extract prefix for additional output
 #One could look at the file name too see if we're dealing with a SAM or BAM file, but this is simpler
 ifile = pysam.AlignmentFile(input, "rb")
 ofile = pysam.AlignmentFile(output, "wb", template=ifile)
-chr = []
-mid_coor = []
-left_coor = []
-right_coor = []
-name = []
+cov_ofile = open(prefix + '.coverage.1b.bg', 'w')
+mid_ofile = open(prefix + '.midpoint.1b.bg', 'w')
 
 #iterate
 if mode == 'pair':
@@ -77,49 +74,50 @@ if mode == 'pair':
 				if (r1.reference_name != r2.reference_name) or (abs(r2_coor - r1_coor) >= 1000) or (abs(r2_coor - r1_coor) == 0):
 					continue
 				else:
+					# get the required info
 					left = r1_coor if r1_coor < r2_coor else r2_coor
 					right = r2_coor if r1_coor < r2_coor else r1_coor
 					read_length = r2.infer_read_length() if r1_coor < r2_coor else r1.infer_read_length()
 					if (frag_size_threshold > 0):
 						if ((right - left + read_length) >= frag_size_threshold):
 							continue				
-					left_coor.append(left)
-					right_coor.append(right + read_length - 1)
-					chr.append(r1.reference_name)
-					mid_coor.append(int((r1_coor + r2_coor + read_length - 1)/2))
+					chrom = r1.reference_name
+					name = "%s/%s" %(r1.qname, r2.qname)
+					mid = int((r1_coor + r2_coor + read_length - 1)/2)
+
+					# write output
 					ofile.write(r1)
 					ofile.write(r2)
-					name.append("%s/%s" %(r1.qname, r2.qname))
+					cov_ofile.write(f'{chrom}\t{left}\t{right}\t{1}\t{name}\n')
+					mid_ofile.write(f'{chrom}\t{mid}\t{mid}\t{1}\t{name}\n')
 
 elif mode == 'single':
 	for read in ifile:
 		if read.mapping_quality >= frag_size_threshold:
-			chr.append(read.reference_name)
-			ofile.write(read)
+			# get the required info
+			chrom = read.reference_name
 			coor = read.reference_start + 1
 			if read.is_reverse:
-				mid_coor.append(int(coor + read.infer_read_length()/2 - shift_size-1))
-				left_coor.append(coor - shift_size)
-				right_coor.append(coor - shift_size + read.infer_read_length()-1)
+				mid = int(coor + read.infer_read_length()/2 - shift_size-1)
+				left = coor - shift_size
+				right = coor - shift_size + read.infer_read_length()-1
 			else:
-				mid_coor.append(int(coor + read.infer_read_length()/2 + shift_size-1))
-				left_coor.append(coor + shift_size)
-				right_coor.append(coor + shift_size + read.infer_read_length()-1)
-			name.append(read.qname)
+				mid = int(coor + read.infer_read_length()/2 + shift_size-1)
+				left = coor + shift_size
+				right = coor + shift_size + read.infer_read_length()-1
+			name = read.qname
+			# write output
+			ofile.write(read)
+			cov_ofile.write(f'{chrom}\t{left}\t{right}\t{1}\t{name}\n')
+			mid_ofile.write(f'{chrom}\t{mid}\t{mid}\t{1}\t{name}\n')
+
 else:
 	raise Exception("Please input a valid mode: single/pair")
 		
 ifile.close()
 ofile.close()
-coverage = pd.DataFrame({'chr':chr, 'left':left_coor, 'right':right_coor})
-coverage['depth'] = 1
-coverage['name'] = name
-midpoint = pd.DataFrame({'chr':chr, 'mid_coor': mid_coor})
-midpoint['right'] = midpoint['mid_coor']
-midpoint['depth'] = 1
-midpoint['name'] = name
-coverage.to_csv(prefix + '.coverage.1b.bg', header=None, sep='\t', index=False)
-midpoint.to_csv(prefix + '.midpoint.1b.bg', header=None, sep='\t', index=False)
+cov_ofile.close()
+mid_ofile.close()
 
 
 
