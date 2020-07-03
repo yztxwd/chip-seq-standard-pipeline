@@ -2,7 +2,8 @@ rule count_size:
     input:
         "output/mapped/{sample}.merged.coverage.1b.bg"
     output:
-        "output/qc/size/{sample}.size.freq"
+        freq="output/qc/size/{sample}.size.freq",
+        png="output/qc/size/{sample}.size.png"
     conda:
         "../envs/py3.yaml"
     script:
