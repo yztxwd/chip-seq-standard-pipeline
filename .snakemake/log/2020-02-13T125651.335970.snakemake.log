@@ -1,4 +1,0 @@
-KeyError in line 12 of /data1/yztxwd/Github/chip-seq-standard-pipeline/Snakefile:
-"None of ['sample'] are in the columns"
-  File "/data1/yztxwd/Github/chip-seq-standard-pipeline/Snakefile", line 12, in <module>
-  File "/data1/yztxwd/miniconda3/envs/common/lib/python3.7/site-packages/pandas/core/frame.py", line 4396, in set_index

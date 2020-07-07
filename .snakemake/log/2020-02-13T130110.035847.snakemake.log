@@ -1,4 +1,0 @@
-SyntaxError:
-Not all output, log and benchmark files of rule trim_pe contain the same wildcards. This is crucial though, in order to avoid that two or more jobs write to the same file.
-  File "/data1/yztxwd/Github/chip-seq-standard-pipeline/Snakefile", line 40, in <module>
-  File "/data1/yztxwd/Github/chip-seq-standard-pipeline/rules/trim.smk", line 17, in <module>

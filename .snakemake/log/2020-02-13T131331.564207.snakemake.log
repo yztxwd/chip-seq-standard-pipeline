@@ -1,5 +1,0 @@
-Building DAG of jobs...
-InputFunctionException in line 1 of /data1/yztxwd/Github/chip-seq-standard-pipeline/rules/merge.smk:
-KeyError: "samples.loc[samples['condition']=='control', 'sample']"
-Wildcards:
-sample=samples.loc[samples['condition']=='control', 'sample']
