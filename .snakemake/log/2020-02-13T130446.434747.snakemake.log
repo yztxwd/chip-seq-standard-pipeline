@@ -1,4 +1,0 @@
-TypeError in line 11 of /data1/yztxwd/Github/chip-seq-standard-pipeline/rules/macs2.smk:
-conda() missing 1 required positional argument: 'conda_env'
-  File "/data1/yztxwd/Github/chip-seq-standard-pipeline/Snakefile", line 45, in <module>
-  File "/data1/yztxwd/Github/chip-seq-standard-pipeline/rules/macs2.smk", line 11, in <module>

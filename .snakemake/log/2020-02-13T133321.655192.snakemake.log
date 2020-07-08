@@ -1,9 +1,0 @@
-Building DAG of jobs...
-File path 'output/mapped/sample
-B    B
-Name: sample, dtype: object.merged.bam' contains line break. This is likely unintended. It can also lead to inconsistent results of the file-matching approach used by Snakemake.
-MissingInputException in line 1 of /data1/yztxwd/Github/chip-seq-standard-pipeline/rules/macs2.smk:
-Missing input files for rule macs2:
-output/mapped/sample
-B    B
-Name: sample, dtype: object.merged.bam

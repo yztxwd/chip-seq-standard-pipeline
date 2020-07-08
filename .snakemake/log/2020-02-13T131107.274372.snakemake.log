@@ -1,6 +1,0 @@
-Building DAG of jobs...
-InputFunctionException in line 15 of /data1/yztxwd/Github/chip-seq-standard-pipeline/rules/bowtie2.smk:
-ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
-Wildcards:
-sample=A
-unit=lane1
