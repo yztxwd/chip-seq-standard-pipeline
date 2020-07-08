@@ -77,6 +77,7 @@ if mode == 'pair':
 					# get the required info
 					left = r1_coor if r1_coor < r2_coor else r2_coor
 					right = r2_coor if r1_coor < r2_coor else r1_coor
+
 					read_length = r2.infer_read_length() if r1_coor < r2_coor else r1.infer_read_length()
 					if (frag_size_threshold > 0):
 						if ((right - left + read_length) >= frag_size_threshold):
@@ -88,7 +89,7 @@ if mode == 'pair':
 					# write output
 					ofile.write(r1)
 					ofile.write(r2)
-					cov_ofile.write(f'{chrom}\t{left}\t{right}\t{1}\t{name}\n')
+					cov_ofile.write(f'{chrom}\t{left}\t{right+read_length-1}\t{1}\t{name}\n')
 					mid_ofile.write(f'{chrom}\t{mid}\t{mid}\t{1}\t{name}\n')
 
 elif mode == 'single':
