@@ -50,11 +50,11 @@ frag_size_threshold = int(option.fragment)
 shift_size = int(option.shift)
 mapq_threshold = int(option.threshold)
 
-prefix = output.split(".flag.sort.bam")[0]	# extract prefix for additional output
+prefix = input.split(".flag.sort.bam")[0]	# extract prefix for additional output
 
 #One could look at the file name too see if we're dealing with a SAM or BAM file, but this is simpler
 ifile = pysam.AlignmentFile(input, "rb")
-ofile = pysam.AlignmentFile(output, "wb", template=ifile)
+ofile = pysam.AlignmentFile(prefix + '.flag.filtered.bam', "wb", template=ifile)
 cov_ofile = open(prefix + '.coverage.1b.bg', 'w')
 mid_ofile = open(prefix + '.midpoint.1b.bg', 'w')
 
