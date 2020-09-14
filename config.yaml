@@ -34,4 +34,8 @@ filter:
   pe: "-m pair -f 0 -s 0 -t 20"
   se: "-m single -f 0 -s 0 -t 20"
 
+macs2:
+  # Cautious on broad option!!
+  extra: "--broad --gsize 1.87e9"
+
 
