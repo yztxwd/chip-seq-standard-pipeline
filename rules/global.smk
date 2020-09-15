@@ -1,2 +1,2 @@
-def is_single_end(sample, unit):
-    return pd.isnull(units.loc[(sample, unit), "fq2"])
+def is_single_end(sample, rep, unit):
+    return pd.isnull(samples.loc[(sample, rep, unit), "fq2"])

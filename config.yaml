@@ -6,6 +6,8 @@ samples: samples.tsv
 # or reverse.
 units: units.tsv
 
+mode: tf # histone or tf
+
 threads: 32
 
 multiqc:
@@ -17,6 +19,7 @@ trimmomatic:
   # the trimming parameter, see manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
   trimmer: "LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
   adapter: "data/TruSeq3-PE.fa"
+  adapter_trimmer: ":2:30:10"
 
 bowtie2:
   # the bowtie2 index
@@ -36,6 +39,6 @@ filter:
 
 macs2:
   # Cautious on broad option!!
-  extra: "--broad --gsize 1.87e9"
+  extra: "--gsize 1.87e9"
 
 

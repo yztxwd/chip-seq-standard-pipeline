@@ -12,7 +12,7 @@ rule fastqc:
 
 rule multiqc:
     input:
-        ["output/qc/fastqc/" + str(i).replace('.fastq.gz', '_fastqc.html') for i in list(units[["fq1", "fq2"]].values.flatten()) if not pd.isnull(i)]
+        ["output/qc/fastqc/" + str(i).replace('.fastq.gz', '_fastqc.html') for i in list(samples[["fq1", "fq2"]].values.flatten()) if not pd.isnull(i)]
     output:
         "output/qc/multiqc/multiqc.html"
     params:

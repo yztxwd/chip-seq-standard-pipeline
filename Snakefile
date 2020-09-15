@@ -9,21 +9,30 @@ min_version("5.1.2")
 configfile: "config.yaml"
 #validate(config, schema="schemas/config.schema.yaml")
 
-samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
+samples = pd.read_table(config["samples"]).set_index(["sample", "rep", "unit"], drop=False)
 #validate(samples, schema="schemas/samples.schema.yaml")
 
-units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
-units.index = units.index.set_levels([i.astype(str) for i in units.index.levels])
+#units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
+#units.index = units.index.set_levels([i.astype(str) for i in units.index.levels])
 #validate(units, schema="schemas/units.schema.yaml")
 
 #### target rules ####
 
-rule all:
-    input:
-        "output/qc/multiqc/multiqc.html",
-#        expand("output/mapped/{samples}.merged.bam", samples=(units['sample']).unique()),
-#        expand("output/qc/size/{samples}.size.freq", samples=(units['sample']).unique()),
-#        expand("output/macs2/{samples}_peaks.narrowPeak", samples=samples.loc[samples["condition"]!="control", "sample"])
+if config["mode"] == "tf":
+    rule all:
+        input:
+            "output/qc/multiqc/multiqc.html",
+            expand("output/mapped/{samples}-{rep}.merged.bam", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/qc/size/{samples}-{rep}.size.freq", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/idr/{samples}.idr.peaks", samples=samples.loc[samples["condition"]!="control", "sample"])
+else:
+    rule all:
+        input:
+            "output/qc/multiqc/multiqc.html",
+            expand("output/mapped/{samples}-{rep}.merged.bam", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/qc/size/{samples}-{rep}.size.freq", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/macs2/{samples}-{rep}.broadPeak", zip, samples=samples.loc[samples["condition"]!="control", "sample"], 
+                                                                rep=samples.loc[samples["condition"]!="control", "rep"])
 
 #### setup singularity ####
 
@@ -43,3 +52,4 @@ include: "rules/filter.smk"
 include: "rules/merge.smk"
 include: "rules/size.smk"
 include: "rules/macs2.smk"
+include: "rules/idr.smk"

@@ -4,28 +4,31 @@ def checkcontrol(samples):
 if checkcontrol(samples):
     rule macs2:
         input:
-            treatment="output/mapped/{sample}.merged.bam",
-            control=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}.merged.bam"
+            treatment="output/mapped/{sample}-{rep}.merged.bam",
+            control=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}-{{rep}}.merged.bam"
         output:
-            "output/macs2/{sample}_peaks.broadPeak"
+            "output/macs2/{sample}-{rep, [^.]+}.broadPeak" if config["mode"]=='histone' else 'output/macs2/{sample}-{rep, [^.]+}.narrowPeak'
         params:
-            format=lambda wildcards: "BAM" if any(pd.isnull(units.loc[wildcards.sample, "fq2"])) else "BAMPE",
+            format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="{sample}",
-            extra=config["macs2"]["extra"]
+            extra=config["macs2"]["extra"],
+            mode="--broad" if config["mode"]=="histone" else ""
         conda:
             "../envs/macs2.yaml"
         shell:
-            "macs2 callpeak -t {input.treatment} -c {input.control} -f {params.format} -n {params.name} {params.extra}"
+            "macs2 callpeak -t {input.treatment} -c {input.control} -f {params.format} -n {params.name} {params.mode} {params.extra}"
+    
 else:
     rule macs2:
         input:
-            treatment="output/mapped/{sample}.merged.bam",
+            treatment="output/mapped/{sample}-{rep}.merged.bam",
         output:
-            "output/macs2/{sample}_peaks.broadPeak"
+            "output/macs2/{sample}-{rep, [^.]+}.broadPeak" if config['mode']=='histone' else 'output/macs2/{sample}-{rep, [^.]+}.narrowPeak'
         params:
-            format=lambda wildcards: "BAM" if any(pd.isnull(units.loc[wildcards.sample, "fq2"])) else "BAMPE",
+            format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="{sample}",
-            extra=config["macs2"]["extra"]
+            extra=config["macs2"]["extra"],
+            mode="--broad" if config["mode"]=="histone" else ""
         conda:
             "../envs/macs2.yaml"
         shell:
