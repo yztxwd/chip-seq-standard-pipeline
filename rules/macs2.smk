@@ -7,7 +7,7 @@ if checkcontrol(samples):
             treatment="output/mapped/{sample}.merged.bam",
             control=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}.merged.bam"
         output:
-            "output/macs2/{sample}_peaks.narrowPeak"
+            "output/macs2/{sample}_peaks.broadPeak"
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(units.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="{sample}",
@@ -21,7 +21,7 @@ else:
         input:
             treatment="output/mapped/{sample}.merged.bam",
         output:
-            "output/macs2/{sample}_peaks.narrowPeak"
+            "output/macs2/{sample}_peaks.broadPeak"
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(units.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="{sample}",
