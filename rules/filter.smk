@@ -27,7 +27,7 @@ rule mapq_filter:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.coverage.1b.bg"),
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.midpoint.1b.bg")
     params:
-        lambda wildcards: (config["filter"]["se"] if is_single_end(wildcards.sample, wildcards.unit) 
+        lambda wildcards: (config["filter"]["se"] if is_single_end(**wildcards) 
             else config["filter"]["pe"]) 
     conda:
         "../envs/py3.yaml"
