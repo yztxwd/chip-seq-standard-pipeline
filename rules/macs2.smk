@@ -25,7 +25,7 @@ else:
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(units.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="{sample}",
-            extra=""
+            extra=config["macs2"]["extra"]
         conda:
             "../envs/macs2.yaml"
         shell:
