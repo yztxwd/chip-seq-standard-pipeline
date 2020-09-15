@@ -4,7 +4,7 @@ rule samtools_view:
     output:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.flag.bam")
     params:
-        lambda wildcards: (config["samtools_view"]["se"] if is_single_end(wildcards.sample, wildcards.unit) 
+        lambda wildcards: (config["samtools_view"]["se"] if is_single_end(**wildcards) 
             else config["samtools_view"]["pe"]) + " -@ " + str(config["threads"])
     wrapper:
         "0.49.0/bio/samtools/view"
