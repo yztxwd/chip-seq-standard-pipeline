@@ -8,6 +8,8 @@ if checkcontrol(samples):
             control=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}-{{rep}}.merged.bam"
         output:
             "output/macs2/{sample}-{rep, [^.]+}.broadPeak" if config["mode"]=='histone' else 'output/macs2/{sample}-{rep, [^.]+}.narrowPeak'
+        log:
+            "output/logs/macs2/{sample}-{rep}.macs2.log"
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="{sample}",
@@ -24,6 +26,8 @@ else:
             treatment="output/mapped/{sample}-{rep}.merged.bam",
         output:
             "output/macs2/{sample}-{rep, [^.]+}.broadPeak" if config['mode']=='histone' else 'output/macs2/{sample}-{rep, [^.]+}.narrowPeak'
+        log:
+            "output/logs/macs2/{sample}-{rep}.macs2.log"
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="{sample}",
