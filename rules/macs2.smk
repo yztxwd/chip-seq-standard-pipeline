@@ -36,4 +36,4 @@ else:
         conda:
             "../envs/macs2.yaml"
         shell:
-            "macs2 callpeak -t {input.treatment} -f {params.format} -n {params.name} {params.extra}"
+            "macs2 callpeak -t {input.treatment} -f {params.format} -n {params.name} {params.mode} {params.extra}"
