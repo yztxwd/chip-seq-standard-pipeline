@@ -31,7 +31,7 @@ else:
             "output/qc/multiqc/multiqc.html",
             expand("output/mapped/{samples}-{rep}.merged.bam", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/qc/size/{samples}-{rep}.size.freq", zip, samples=samples["sample"], rep=samples["rep"]),
-            expand("output/macs2/{samples}-{rep}.broadPeak", zip, samples=samples.loc[samples["condition"]!="control", "sample"], 
+            expand("output/macs2/{samples}-{rep}_peaks.broadPeak", zip, samples=samples.loc[samples["condition"]!="control", "sample"], 
                                                                 rep=samples.loc[samples["condition"]!="control", "rep"])
 
 #### setup singularity ####
