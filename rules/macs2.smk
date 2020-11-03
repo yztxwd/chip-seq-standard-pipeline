@@ -14,7 +14,7 @@ if checkcontrol(samples):
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="output/macs2/{sample}-{rep}",
-            extra=config["macs2"]["extra"],
+            extra=lambda wildcards: config["macs2"][samples.loc[(wildcards.sample, wildcards.rep), "specie"].iloc[0]],
             mode="--broad" if config["mode"]=="histone" else ""
         conda:
             "../envs/macs2.yaml"
@@ -33,7 +33,7 @@ else:
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="output/macs2/{sample}-{rep}",
-            extra=config["macs2"]["extra"],
+            extra=lambda wildcards: config["macs2"][samples.loc[(wildcards.sample, wildcards.rep), "specie"].iloc[0]],
             mode="--broad" if config["mode"]=="histone" else ""
         conda:
             "../envs/macs2.yaml"

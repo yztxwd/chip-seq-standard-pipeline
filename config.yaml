@@ -18,12 +18,15 @@ trimmomatic:
   skip: false
   # the trimming parameter, see manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
   trimmer: "LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
-  adapter: "data/TruSeq3-PE.fa"
+  pe_adapter: "data/TruSeq3-PE.fa"
+  se_adapter: "data/TruSeq3-SE.fa"
   adapter_trimmer: ":2:30:10"
 
 bowtie2:
   # the bowtie2 index
-  index: "/data1/yztxwd/Genome/mm10_ensembl/Index/Bowtie2/bowtie2"
+  index: 
+    mouse: "/data1/yztxwd/Genome/mm10_ensembl/Index/Bowtie2/bowtie2"
+    human: "path/to/bowtie2/human/index"
   # extra parameters, see manual: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
   extra: ""
 
@@ -39,6 +42,5 @@ filter:
 
 macs2:
   # Cautious on broad option!!
-  extra: "--gsize 1.87e9"
-
-
+  mouse: "--gsize mm -q 0.05"
+  human: "--gsize hs -q 0.05"
