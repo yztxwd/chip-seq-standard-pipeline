@@ -24,4 +24,4 @@ rule bowtie2_mapping:
     threads: 
         config["threads"]
     wrapper:
-        "0.49.0/bio/bowtie2/align"
+        f"file:{snake_dir}/wrappers/bowtie2/align"

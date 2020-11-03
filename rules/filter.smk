@@ -7,7 +7,7 @@ rule samtools_view:
         lambda wildcards: (config["samtools_view"]["se"] if is_single_end(**wildcards) 
             else config["samtools_view"]["pe"]) + " -@ " + str(config["threads"])
     wrapper:
-        "0.49.0/bio/samtools/view"
+        f"file:{snake_dir}/wrappers/samtools/view"
 
 rule samtools_sort:
     input:
@@ -17,7 +17,7 @@ rule samtools_sort:
     params:
         "-n -@ " + str(config["threads"])
     wrapper:
-        "0.49.0/bio/samtools/sort"
+        f"file:{snake_dir}/wrappers/samtools/sort"
 
 rule mapq_filter:
     input:
@@ -40,4 +40,4 @@ rule samtools_flagstat:
     output:
         "qc/flagstat/{sample}-{rep, [^-]+}-{unit, [^.]+}.flagstat"
     wrapper:
-        "0.49.0/bio/samtools/flagstat"
+        f"file:{snake_dir}/wrappers/samtools/flagstat"

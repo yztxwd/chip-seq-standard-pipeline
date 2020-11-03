@@ -8,7 +8,7 @@ rule merge_bam:
     threads:
         config['threads']
     wrapper:
-        "0.49.0/bio/samtools/merge"
+        f"file:{snake_dir}/wrappers/samtools/merge"
 
 rule merge_bed:
     input:

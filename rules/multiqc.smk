@@ -8,7 +8,7 @@ rule fastqc:
     log:
         "output/logs/fastqc/{sample}.fastqc.log"
     wrapper:
-        "0.49.0/bio/fastqc"  
+        f"file:{snake_dir}/wrappers/fastqc" 
 
 rule multiqc:
     input:
@@ -20,4 +20,4 @@ rule multiqc:
     log:
         "output/logs/multiqc/multiqc.log"
     wrapper:
-        "0.49.0/bio/multiqc"
+        f"file:{snake_dir}/wrappers/multiqc" 
