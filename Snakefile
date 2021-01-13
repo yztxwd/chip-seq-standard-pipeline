@@ -24,7 +24,7 @@ if config["mode"] == "tf":
             "output/qc/multiqc/multiqc.html",
             expand("output/mapped/{samples}-{rep}-{unit}.clean.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"], unit=samples["unit"]),
             expand("output/mapped/{samples}-{rep}.merge.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"]),
-            expand("output/qc/size/{samples}-{rep}.size.freq", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/qc/bamPEFragmentSize/{sample}-{rep}.hist.png", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bw", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/idr/{samples}.idr.peaks", samples=samples.loc[samples["condition"]!="control", "sample"])
 else:
@@ -33,7 +33,7 @@ else:
             "output/qc/multiqc/multiqc.html",
             expand("output/mapped/{samples}-{rep}-{unit}.clean.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"], unit=samples["unit"]),
             expand("output/mapped/{samples}-{rep}.merge.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"]),
-            expand("output/qc/size/{samples}-{rep}.size.freq", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/qc/bamPEFragmentSize/{sample}-{rep}.hist.png", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bw", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/macs2/{samples}-{rep}_peaks.broadPeak", zip, samples=samples.loc[samples["condition"]!="control", "sample"], 
                                                                 rep=samples.loc[samples["condition"]!="control", "rep"])
@@ -54,5 +54,6 @@ include: "rules/trim.smk"
 include: "rules/bowtie2.smk"
 include: "rules/filter.smk"
 include: "rules/merge.smk"
+include: "rules/coverage.smk"
 include: "rules/macs2.smk"
 include: "rules/idr.smk"
