@@ -1,24 +1,31 @@
 rule merge_bam:
     input:
-        lambda wildcards: expand("output/mapped/{sample}-{rep}-{unit}.flag.filtered.bam", **wildcards, unit=samples.loc[(wildcards.sample, wildcards.rep),  'unit'])
+        lambda wildcards: expand("output/mapped/{sample}-{rep}-{unit}.clean.sort.bam", **wildcards, unit=samples.loc[(wildcards.sample, wildcards.rep),  'unit'])
     output:
-        "output/mapped/{sample}-{rep, [^.]+}.merged.bam"
+        temp("output/mapped/{sample}-{rep, [^.]+}.merge.bam")
     params:
-        "-n"
+        ""
     threads:
         config['threads']
     wrapper:
         f"file:{snake_dir}/wrappers/samtools/merge"
 
-rule merge_bed:
+rule merge_bam_sort:
     input:
-        coverage=lambda wildcards: expand("output/mapped/{sample}-{rep}-{unit}.coverage.1b.bg", **wildcards, unit=samples.loc[(wildcards.sample, wildcards.rep), 'unit']),
-        midpoint=lambda wildcards: expand("output/mapped/{sample}-{rep}-{unit}.midpoint.1b.bg", **wildcards, unit=samples.loc[(wildcards.sample, wildcards.rep), 'unit'])
+        "output/mapped/{sample}-{rep}.merge.bam"
     output:
-        coverage="output/mapped/{sample}-{rep, [^.]+}.merged.coverage.1b.bg",
-        midpoint="output/mapped/{sample}-{rep, [^.]+}.merged.midpoint.1b.bg"
-    shell:
-        """
-        cat {input.coverage} > {output.coverage}
-        cat {input.midpoint} > {output.midpoint}
-        """
+        "output/mapped/{sample}-{rep, [^.]+}.merge.sort.bam"
+    params:
+        "-@ " + str(config["threads"])
+    wrapper:
+        f"file:{snake_dir}/wrappers/samtools/sort"
+
+rule samtools_index:
+    input:
+        "output/mapped/{sample}-{rep}.merge.sort.bam"
+    output:
+        "output/mapped/{sample}-{rep, [^.]+}.merge.sort.bam.bai"
+    params:
+        "-@ " + str(config["threads"])
+    wrapper:
+        f"file:{snake_dir}/wrappers/samtools/index"

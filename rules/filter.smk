@@ -24,8 +24,6 @@ rule mapq_filter:
         "output/mapped/{sample}-{rep}-{unit}.flag.sort.bam"
     output:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.flag.filtered.bam"),
-        temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.coverage.1b.bg"),
-        temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.midpoint.1b.bg")
     params:
         lambda wildcards: (config["filter"]["se"] if is_single_end(**wildcards) 
             else config["filter"]["pe"]) 
@@ -41,3 +39,24 @@ rule samtools_flagstat:
         "qc/flagstat/{sample}-{rep, [^-]+}-{unit, [^.]+}.flagstat"
     wrapper:
         f"file:{snake_dir}/wrappers/samtools/flagstat"
+
+rule samtools_sort_coord:
+    input:
+        "output/mapped/{sample}-{rep}-{unit}.flag.sort.filtered.bam"
+    output:
+        "output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.clean.sort.bam"
+    params:
+        "-@ " + str(config["threads"])
+    wrapper:
+        f"file:{snake_dir}/wrappers/samtools/sort"
+
+rule samtools_index:
+    input:
+        "output/mapped/{sample}-{rep}-{unit}.clean.sort.bam"
+    output:
+        "output/mapped/{sample}-{rep}-{unit}.clean.sort.bam.bai"
+    params:
+        "-@ " + str(config["threads"])
+    wrapper:
+        f"file:{snake_dir}/wrappers/samtools/index"
+

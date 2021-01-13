@@ -24,6 +24,7 @@ if config["mode"] == "tf":
             "output/qc/multiqc/multiqc.html",
             expand("output/mapped/{samples}-{rep}.merged.bam", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/qc/size/{samples}-{rep}.size.freq", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/coverage/{samples}-{rep}.bw", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/idr/{samples}.idr.peaks", samples=samples.loc[samples["condition"]!="control", "sample"])
 else:
     rule all:
@@ -31,6 +32,7 @@ else:
             "output/qc/multiqc/multiqc.html",
             expand("output/mapped/{samples}-{rep}.merged.bam", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/qc/size/{samples}-{rep}.size.freq", zip, samples=samples["sample"], rep=samples["rep"]),
+            expand("output/coverage/{samples}-{rep}.bw", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/macs2/{samples}-{rep}_peaks.broadPeak", zip, samples=samples.loc[samples["condition"]!="control", "sample"], 
                                                                 rep=samples.loc[samples["condition"]!="control", "rep"])
 
@@ -45,11 +47,10 @@ report: "report/workflow.rst"
 
 #### load rules ####
 include: "rules/global.smk"
-include: "rules/multiqc.smk"
+include: "rules/qc.smk"
 include: "rules/trim.smk"
 include: "rules/bowtie2.smk"
 include: "rules/filter.smk"
 include: "rules/merge.smk"
-include: "rules/size.smk"
 include: "rules/macs2.smk"
 include: "rules/idr.smk"

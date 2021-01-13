@@ -35,7 +35,13 @@ samtools_view:
 
 filter:
   # parameters
-  pe: "-m pair -f 0 -s 0 -t 20"
-  se: "-m single -f 0 -s 0 -t 20"
+  pe: "-m pair -f 0 -t 10"
+  se: "-m single -f 0 -t 10"
 
 macs2: "--gsize mm -q 0.05"
+
+genomeov: "-bg -pc"
+
+bedGraphToBigWig:
+  chrom: "path/to/chrom/size"
+  params: ""

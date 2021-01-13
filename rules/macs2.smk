@@ -4,8 +4,8 @@ def checkcontrol(samples):
 if checkcontrol(samples):
     rule macs2:
         input:
-            treatment="output/mapped/{sample}-{rep}.merged.bam",
-            control=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}-{{rep}}.merged.bam"
+            treatment="output/mapped/{sample}-{rep}.merge.sort.bam",
+            control=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}-{{rep}}.merge.sort.bam"
         output:
             "output/macs2/{sample}-{rep, [^.]+}_peaks.broadPeak" if config["mode"]=='histone' else 'output/macs2/{sample}-{rep, [^.]+}_peaks.narrowPeak'
         log:
@@ -24,7 +24,7 @@ if checkcontrol(samples):
 else:
     rule macs2:
         input:
-            treatment="output/mapped/{sample}-{rep}.merged.bam",
+            treatment="output/mapped/{sample}-{rep}.merge.sort.bam",
         output:
             "output/macs2/{sample}-{rep, [^.]+}_peaks.broadPeak" if config['mode']=='histone' else 'output/macs2/{sample}-{rep, [^.]+}_peaks.narrowPeak'
         log:
