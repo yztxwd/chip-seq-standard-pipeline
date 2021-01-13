@@ -19,7 +19,7 @@ rule bowtie2_mapping:
     log:
         "output/logs/bowtie2/{sample}-{rep, [^-]+}-{unit}.log"
     params:
-        index=lambda wildcards: config["bowtie2"]["index"][samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "specie"]],
+        index=lambda wildcards: config["bowtie2"]["index"],
         extra=config["bowtie2"]["extra"]
     threads: 
         config["threads"]

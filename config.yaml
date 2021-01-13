@@ -6,7 +6,7 @@ samples: samples.tsv
 # or reverse.
 units: units.tsv
 
-mode: tf # histone or tf
+mode: tf # histone or tf, "--broad" option will be enabled in macs2 under histone mode
 
 threads: 32
 
@@ -24,9 +24,7 @@ trimmomatic:
 
 bowtie2:
   # the bowtie2 index
-  index: 
-    mouse: "/data1/yztxwd/Genome/mm10_ensembl/Index/Bowtie2/bowtie2"
-    human: "path/to/bowtie2/human/index"
+  index: "path/to/bowtie2/human/index"
   # extra parameters, see manual: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
   extra: ""
 
@@ -40,7 +38,4 @@ filter:
   pe: "-m pair -f 0 -s 0 -t 20"
   se: "-m single -f 0 -s 0 -t 20"
 
-macs2:
-  # Cautious on broad option!!
-  mouse: "--gsize mm -q 0.05"
-  human: "--gsize hs -q 0.05"
+macs2: "--gsize mm -q 0.05"
