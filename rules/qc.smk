@@ -24,11 +24,15 @@ rule multiqc:
 
 rule count_size:
     input:
-        "output/mapped/{sample}-{rep}.merged.coverage.1b.bg"
+        "output/mapped/{sample}-{rep}.merge.sort.bam"
     output:
-        freq="output/qc/size/{sample}-{rep, [^-]+}.size.freq",
-        png="output/qc/size/{sample}-{rep, [^-]+}.size.png"
+        png="output/qc/bamPEFragmentSize/{sample}-{rep, [^-]+}.hist.png"
+    params:
+        title="{sample}-{rep}",
+        extra="--plotFileFormat png"
+    threads:
+        config["threads"]
     conda:
-        "../envs/py3.yaml"
-    script:
-        "../scripts/count_size_smk.py"
+        "../envs/deeptools.yaml"
+    shell:
+        "bamPEFragmentSize --bamfiles {input} --histogram {output.png} {params.extra} -T {params.title} -p {threads}"
