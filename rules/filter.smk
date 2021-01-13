@@ -42,7 +42,7 @@ rule samtools_flagstat:
 
 rule samtools_sort_coord:
     input:
-        "output/mapped/{sample}-{rep}-{unit}.flag.sort.filtered.bam"
+        "output/mapped/{sample}-{rep}-{unit}.flag.filtered.bam"
     output:
         "output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.clean.sort.bam"
     params:
