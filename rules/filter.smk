@@ -52,9 +52,9 @@ rule samtools_sort_coord:
 
 rule samtools_index:
     input:
-        "output/mapped/{sample}-{rep}-{unit}.clean.sort.bam"
+        "{header}.bam"
     output:
-        "output/mapped/{sample}-{rep}-{unit}.clean.sort.bam.bai"
+        "{header}.bam.bai"
     params:
         "-@ " + str(config["threads"])
     wrapper:

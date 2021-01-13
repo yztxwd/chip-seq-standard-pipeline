@@ -20,12 +20,3 @@ rule merge_bam_sort:
     wrapper:
         f"file:{snake_dir}/wrappers/samtools/sort"
 
-rule samtools_index:
-    input:
-        "output/mapped/{sample}-{rep}.merge.sort.bam"
-    output:
-        "output/mapped/{sample}-{rep, [^.]+}.merge.sort.bam.bai"
-    params:
-        "-@ " + str(config["threads"])
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/index"
