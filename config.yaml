@@ -40,8 +40,8 @@ filter:
 
 macs2: "--gsize mm -q 0.05"
 
-genomeov: "-bg -pc"
+genomecov: "-bg -pc"
 
 bedGraphToBigWig:
-  chrom: "path/to/chrom/size"
+  chrom: "data/Mus_musculus.GRCm38.dna.merge.fa.fai"
   params: ""

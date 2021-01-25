@@ -2,7 +2,7 @@
 
 rule genomecov_bam:
     input:
-        "output/mapped/"
+        "output/mapped/{sample}-{rep}.merge.sort.bam"
     output:
         "output/coverage/{sample}-{rep, [^.]+}.bedGraph"
     log:
