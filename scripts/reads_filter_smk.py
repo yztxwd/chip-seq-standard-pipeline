@@ -71,7 +71,7 @@ if mode == 'pair':
 			if (r1.mapping_quality >= mapq_threshold and r2.mapping_quality >= mapq_threshold) :
 				r1_coor = r1.reference_start + 1
 				r2_coor = r2.reference_start + 1
-				if (r1.reference_name != r2.reference_name) or (abs(r2_coor - r1_coor) >= 1000) or (abs(r2_coor - r1_coor) == 0):
+				if (r1.reference_name != r2.reference_name):
 					continue
 				else:
 					# get the required info
