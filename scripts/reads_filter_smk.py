@@ -90,7 +90,6 @@ if mode == 'pair':
 
 			ofile.write(r1)
 			ofile.write(r2)
-			name.append("%s/%s" %(r1.qname, r2.qname))
 
 elif mode == 'single':
 	for read in ifile:
