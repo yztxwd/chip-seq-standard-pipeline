@@ -13,8 +13,17 @@ rule trim_pe:
         trimmer=["ILLUMINACLIP:" + config["trimmomatic"]["pe_adapter"] + config["trimmomatic"]["adapter_trimmer"], config["trimmomatic"]["trimmer"]]
     threads:
         config["threads"]
-    wrapper:
-        f"file:{snake_dir}/wrappers/trimmomatic/pe" 
+    conda:
+        f"{snake_dir}/wrappers/trimmomatic/pe/envrionment.yaml"
+    shell:
+        """
+        trimmomatic PE -threads {threads} {extra} \
+          {input.r1} {input.r2} \
+          {output.r1} {output.r1_unpaired} \
+          {output.r2} {output.r2_unpaired} \
+          {params.trimmer} \
+          {log}
+        """
 
 rule trim_se:
     input:
