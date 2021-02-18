@@ -42,21 +42,9 @@ rule mapq_filter:
     script:
         "../scripts/reads_filter_smk.py"
 
-rule samtools_flagstat:
-    input:
-        "output/mapped/{smaple}-{rep, [^-]+}-{unit}.flag.filtered.bam"
-    output:
-        "qc/flagstat/{sample}-{rep, [^-]+}-{unit, [^.]+}.flagstat"
-    conda:
-        f"{snake_dir}/wrappers/samtools/flagstat/environment.yaml"
-    shell:
-        """
-        samtools flagstat {input} > {output}
-        """
-
 rule samtools_sort_coord:
     input:
-        "output/mapped/{sample}-{rep}-{unit}.flag.filtered.bam"
+        "output/mapped/{sample}-{rep}-{unit}.flag.sort.bam" if config['filter']['skip'] else "output/mapped/{sample}-{rep}-{unit}.flag.filtered.bam"
     output:
         "output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.clean.sort.bam"
     params:
@@ -82,5 +70,17 @@ rule samtools_index:
     shell:
         """
         samtools index {params} {input} {output}
+        """
+
+rule samtools_flagstat:
+    input:
+        "output/mapped/{sample}-{rep}-{unit}.flag.sort.bam" if config['filter']['skip'] else "output/mapped/{smaple}-{rep, [^-]+}-{unit}.flag.filtered.bam"
+    output:
+        "qc/flagstat/{sample}-{rep, [^-]+}-{unit, [^.]+}.flagstat"
+    conda:
+        f"{snake_dir}/wrappers/samtools/flagstat/environment.yaml"
+    shell:
+        """
+        samtools flagstat {input} > {output}
         """
 

@@ -1,20 +1,7 @@
-def get_fq(wildcards):
-    if config["trimmomatic"]["skip"]:
-        # no trimming, use raw reads
-        return "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), ["fq1", "fq2"]].dropna()
-    else:
-        # yes trimming, use output/trimmed reads
-        if not is_single_end(**wildcards):
-            # paired-end sample
-            return expand("output/trimmed/{sample}-{rep}-{unit}.trim.{num}.fq.gz",
-                            num=[1, 2], **wildcards)
-        # single end sample
-        return ["output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz".format(**wildcards)]
-
 rule bowtie2_mapping_pe:
     input:
-        r1="output/trimmed/{sample}-{rep}-{unit}.trim.1.fq.gz",
-        r2="output/trimmed/{sample}-{rep}-{unit}.trim.2.fq.gz"
+        r1=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.1.fq.gz",
+        r2=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq2"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.2.fq.gz"
     output:
         temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.pe.bam")
     log:
@@ -35,7 +22,7 @@ rule bowtie2_mapping_pe:
 
 rule bowtie2_mapping_se:
     input:
-        "output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz"
+        lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz"
     output:
         temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.se.bam")
     log:
