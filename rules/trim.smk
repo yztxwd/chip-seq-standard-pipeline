@@ -23,7 +23,7 @@ rule trim_pe:
           {output.r1} {output.r1_unpaired} \
           {output.r2} {output.r2_unpaired} \
           {params.trimmer} \
-          {log}
+          &> {log}
         """
 
 rule trim_se:
