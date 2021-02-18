@@ -10,14 +10,15 @@ rule trim_pe:
     log:
         "output/logs/trimmomatic/{sample}-{rep}-{unit}.trimmomatic.log"
     params:
-        trimmer=["ILLUMINACLIP:" + config["trimmomatic"]["pe_adapter"] + config["trimmomatic"]["adapter_trimmer"], config["trimmomatic"]["trimmer"]]
+        trimmer=["ILLUMINACLIP:" + config["trimmomatic"]["pe_adapter"] + config["trimmomatic"]["adapter_trimmer"], config["trimmomatic"]["trimmer"]],
+        extra=""
     threads:
         config["threads"]
     conda:
-        f"{snake_dir}/wrappers/trimmomatic/pe/envrionment.yaml"
+        f"{snake_dir}/wrappers/trimmomatic/pe/environment.yaml"
     shell:
         """
-        trimmomatic PE -threads {threads} {extra} \
+        trimmomatic PE -threads {threads} {params.extra} \
           {input.r1} {input.r2} \
           {output.r1} {output.r1_unpaired} \
           {output.r2} {output.r2_unpaired} \
