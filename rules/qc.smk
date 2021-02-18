@@ -24,8 +24,7 @@ rule multiqc:
 
 rule count_size:
     input:
-        bam="output/mapped/{sample}-{rep}.merge.sort.bam",
-        bai="output/mapped/{sample}-{rep}.merge.sort.bam.bai"
+        "output/mapped/{sample}-{rep}.merge.sort.bam"
     output:
         png="output/qc/bamPEFragmentSize/{sample}-{rep, [^-]+}.hist.png"
     params:
@@ -36,4 +35,4 @@ rule count_size:
     conda:
         "../envs/deeptools.yaml"
     shell:
-        "bamPEFragmentSize --bamfiles {input.bam} --histogram {output.png} {params.extra} -T {params.title} -p {threads}"
+        "bamPEFragmentSize --bamfiles {input} --histogram {output.png} {params.extra} -T {params.title} -p {threads}"
