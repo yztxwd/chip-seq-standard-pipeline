@@ -18,22 +18,23 @@ rule fastqc:
 
 rule multiqc:
     input:
-        dir=["output/qc/fastqc/"]
+        ["output/qc/fastqc/" + str(i).replace('.fastq.gz', '_fastqc.html') for i in list(samples[["fq1", "fq2"]].values.flatten()) if not pd.isnull(i)]
     output:
-        html="output/qc/multiqc/multiqc.html",
-        dir="output/qc/multiqc/"
+        html="output/qc/multiqc/multiqc.html"
     params:
-        config["multiqc"]["params"]
+        config["multiqc"]["params"],
+        fastqc_dir="output/qc/fastqc",
+        multiqc_dir="output/qc/multiqc/"
     log:
         "output/logs/multiqc/multiqc.log"
     conda:
-        f"{snake_dir}/wrappers/multiqc/envrionment.yaml"
+        f"{snake_dir}/wrappers/multiqc/environment.yaml"
     shell:
         """
         multiqc {params} --force \
-          -o {output.dir} \
+          -o {params.multiqc_dir} \
           -n {output.html} \
-          {input.dir} \
+          {params.fastqc_dir} \
           &> {log}
         """
 
