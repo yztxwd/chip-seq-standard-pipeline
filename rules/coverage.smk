@@ -9,8 +9,10 @@ rule genomecov_bam:
         "logs/genomecov/{sample}-{rep}.log"
     params:
         config["genomecov"]
-    wrapper:
-        "v0.69.0/bio/bedtools/genomecov"
+    conda:
+        f"{snake_dir}/envs/bedtools.yaml"
+    shell:
+        "genomeCoverageBed {params} {input} 1> {output} 2> {log}"
 
 rule bedGraphToBigWig:
     input:
@@ -22,5 +24,10 @@ rule bedGraphToBigWig:
         "logs/bedGraphToBigWig/{sample}-{rep}.log"
     params:
         config["bedGraphToBigWig"]["params"]
-    wrapper:
-        "v0.69.0/bio/ucsc/bedGraphToBigWig"
+    conda:
+        f"{snake_dir}/envs/ucsc.yaml"
+    shell:
+        """
+        bedGraphToBigWig {params} {input.bedGraph} {input.chromsizes} \
+            {output} &> {log}        
+        """

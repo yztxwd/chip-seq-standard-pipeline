@@ -7,20 +7,35 @@ rule fastqc:
     params: ""
     log:
         "output/logs/fastqc/{sample}.fastqc.log"
-    wrapper:
-        f"file:{snake_dir}/wrappers/fastqc" 
+    conda:
+        f"{snake_dir}/wrappers/fastqc/environment.yaml"
+    shell:
+        """
+        fastqc {params} --quiet \
+          --outdir output/qc/fastqc/ {input[0]} \
+          > {log}
+        """
 
 rule multiqc:
     input:
-        ["output/qc/fastqc/" + str(i).replace('.fastq.gz', '_fastqc.html') for i in list(samples[["fq1", "fq2"]].values.flatten()) if not pd.isnull(i)]
+        dir=["output/qc/fastqc/"]
     output:
-        "output/qc/multiqc/multiqc.html"
+        html="output/qc/multiqc/multiqc.html",
+        dir="output/qc/multiqc/"
     params:
         config["multiqc"]["params"]
     log:
         "output/logs/multiqc/multiqc.log"
-    wrapper:
-        f"file:{snake_dir}/wrappers/multiqc" 
+    conda:
+        f"{snake_dir}/wrappers/multiqc/envrionment.yaml"
+    shell:
+        """
+        multiqc {params} --force \
+          -o {output.dir} \
+          -n {output.html} \
+          {input.dir} \
+          &> {log}
+        """
 
 rule count_size:
     input:

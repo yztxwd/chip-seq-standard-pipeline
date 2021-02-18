@@ -34,9 +34,17 @@ rule trim_se:
     log:
         "output/logs/trimmomatic/{sample}-{rep}-{unit}.trimmomatic.log"
     params:
-        trimmer=["ILLUMINACLIP:" + config["trimmomatic"]["se_adapter"] + config["trimmomatic"]["adapter_trimmer"], config["trimmomatic"]["trimmer"]]
+        trimmer=["ILLUMINACLIP:" + config["trimmomatic"]["se_adapter"] + config["trimmomatic"]["adapter_trimmer"], config["trimmomatic"]["trimmer"]],
+        extra=""
     threads:
         config["threads"]
-    wrapper:
-        f"file:{snake_dir}/wrappers/trimmomatic/se" 
+    conda:
+        f"{snake_dir}/wrappers/trimmomatic/se/environment.yaml"
+    shell:
+        """
+        trimmomatic SE -threads {threads} {params.extra} \
+          {input} {output} \
+          {params.trimmer} \
+          &> {log}
+        """
 

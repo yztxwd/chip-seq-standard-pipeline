@@ -7,8 +7,13 @@ rule merge_bam:
         ""
     threads:
         config['threads']
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/merge"
+    conda:
+        f"{snake_dir}/wrappers/samtools/merge/environment.yaml"
+    shell:
+        """
+        samtools merge {threads} {params} \
+            {output} {input}
+        """
 
 rule merge_bam_sort:
     input:
@@ -16,7 +21,13 @@ rule merge_bam_sort:
     output:
         "output/mapped/{sample}-{rep, [^.]+}.merge.sort.bam"
     params:
-        "-@ " + str(config["threads"])
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/sort"
+        ""
+    threads:
+        config['threads']
+    conda:
+        f"{snake_dir}/wrappers/samtools/sort/environment.yaml"
+    shell:
+        """
+        samtools sort {params} -@ {threads} -o {output} {input}
+        """
 

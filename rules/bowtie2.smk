@@ -11,11 +11,12 @@ def get_fq(wildcards):
         # single end sample
         return ["output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz".format(**wildcards)]
 
-rule bowtie2_mapping:
+rule bowtie2_mapping_pe:
     input:
-        sample=get_fq
+        r1="output/trimmed/{sample}-{rep}-{unit}.trim.1.fq.gz",
+        r2="output/trimmed/{sample}-{rep}-{unit}.trim.2.fq.gz"
     output:
-        temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.bam")
+        temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.pe.bam")
     log:
         "output/logs/bowtie2/{sample}-{rep, [^-]+}-{unit}.log"
     params:
@@ -23,5 +24,32 @@ rule bowtie2_mapping:
         extra=config["bowtie2"]["extra"]
     threads: 
         config["threads"]
-    wrapper:
-        f"file:{snake_dir}/wrappers/bowtie2/align"
+    conda:
+        f"file:{snake_dir}/wrappers/bowtie2/align/environment.yaml"
+    shell:
+        """
+        bowtie2 --threads {threads} {params.extra} \
+            -x {params.index} -1 {input.r1} -2 {input.r2} \
+            | samtools view -Sbh -o {output} &> {log}
+        """
+
+rule bowtie2_mapping_se:
+    input:
+        "output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz"
+    output:
+        temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.se.bam")
+    log:
+        "output/logs/bowtie2/{sample}-{rep, [^-]+}-{unit}.log"
+    params:
+        index=lambda wildcards: config["bowtie2"]["index"],
+        extra=config["bowtie2"]["extra"]
+    threads: 
+        config["threads"]
+    conda:
+        f"file:{snake_dir}/wrappers/bowtie2/align/environment.yaml"
+    shell:
+        """
+        bowtie2 --threads {threads} {params.extra} \
+            -x {params.index} -U {input} \
+            | samtools view -Sbh -o {output} &> {log}
+        """  

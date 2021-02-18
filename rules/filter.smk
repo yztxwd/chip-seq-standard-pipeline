@@ -1,13 +1,17 @@
 rule samtools_view:
     input:
-        "output/mapped/{sample}-{rep}-{unit}.bam"
+        lambda wildcards: "output/mapped/{sample}-{rep}-{unit}.se.bam" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "output/mapped/{sample}-{rep}-{unit}.pe.bam"
     output:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.flag.bam")
     params:
         lambda wildcards: (config["samtools_view"]["se"] if is_single_end(**wildcards) 
             else config["samtools_view"]["pe"]) + " -@ " + str(config["threads"])
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/view"
+    conda:
+        f"{snake_dir}/wrappers/samtools/view/environment.yaml"
+    shell:
+        """
+        samtools view {params} {input} > {output}
+        """
 
 rule samtools_sort:
     input:
@@ -15,9 +19,15 @@ rule samtools_sort:
     output:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.flag.sort.bam")
     params:
-        "-n -@ " + str(config["threads"])
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/sort"
+        "-n"
+    threads:
+        config['threads']
+    conda:
+        f"{snake_dir}/wrappers/samtools/sort/environment.yaml"
+    shell:
+        """
+        samtools sort {params} -@ {threads} -o {output} {input}
+        """
 
 rule mapq_filter:
     input:
@@ -37,8 +47,12 @@ rule samtools_flagstat:
         "output/mapped/{smaple}-{rep, [^-]+}-{unit}.flag.filtered.bam"
     output:
         "qc/flagstat/{sample}-{rep, [^-]+}-{unit, [^.]+}.flagstat"
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/flagstat"
+    conda:
+        f"{snake_dir}/wrappers/samtools/flagstat/environment.yaml"
+    shell:
+        """
+        samtools flagstat {input} > {output}
+        """
 
 rule samtools_sort_coord:
     input:
@@ -46,9 +60,15 @@ rule samtools_sort_coord:
     output:
         "output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.clean.sort.bam"
     params:
-        "-@ " + str(config["threads"])
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/sort"
+        ""
+    threads:
+        config['threads']
+    conda:
+        f"{snake_dir}/wrappers/samtools/sort/environment.yaml"
+    shell:
+        """
+        samtools sort {params} -@ {threads} -o {output} {input}
+        """
 
 rule samtools_index:
     input:
@@ -56,7 +76,11 @@ rule samtools_index:
     output:
         "{header}.bam.bai"
     params:
-        "-@ " + str(config["threads"])
-    wrapper:
-        f"file:{snake_dir}/wrappers/samtools/index"
+        ""
+    conda:
+        f"{snake_dir}/wrappers/samtools/index/environment.yaml"
+    shell:
+        """
+        samtools index {params} {input} {output}
+        """
 
