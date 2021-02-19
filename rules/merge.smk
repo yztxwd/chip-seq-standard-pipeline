@@ -11,7 +11,7 @@ rule merge_bam:
         f"{snake_dir}/wrappers/samtools/merge/environment.yaml"
     shell:
         """
-        samtools merge {threads} {params} \
+        samtools merge -@ {threads} {params} \
             {output} {input}
         """
 
