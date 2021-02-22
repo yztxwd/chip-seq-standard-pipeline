@@ -27,9 +27,11 @@ if config["mode"] == "tf":
             expand("output/qc/bamPEFragmentSize/{samples}-{rep}.hist.png", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bw", zip, samples=samples["sample"], rep=samples["rep"]),
             expand('output/coverage/{samples}-{rep}.bamCompare.bw', zip, 
-                     samples=samples.loc[samples["condition"]!="control", "sample"] if "control" in samples["condition"].values else [None],
-                     rep=samples.loc[samples["condition"]!="control", "rep"] if "control" in samples["condition"].values else [None]),
-            expand("output/idr/{samples}.idr.peaks", samples=samples.loc[samples["condition"]!="control", "sample"])
+                     samples=samples.loc[samples["condition"]!="control", "sample"] if "control" in samples["condition"].values else [],
+                     rep=samples.loc[samples["condition"]!="control", "rep"] if "control" in samples["condition"].values else []),
+            expand("output/macs2/{samples}-{rep}_peaks.narrowPeak", zip, samples=samples.loc[samples["condition"]!="control", "sample"],
+                                                                         rep=samples.loc[samples["condition"]!="control", "rep"])
+#            expand("output/idr/{samples}.idr.peaks", samples=samples.loc[samples["condition"]!="control", "sample"])
 else:
     rule all:
         input:
@@ -38,9 +40,9 @@ else:
             expand("output/mapped/{samples}-{rep}.merge.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/qc/bamPEFragmentSize/{samples}-{rep}.hist.png", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bw", zip, samples=samples["sample"], rep=samples["rep"]),
-            expand('output/coverage/{samples}-{rep}.bamCompare.bw', 
-                     samples=samples.loc[samples["condition"]!="control", "sample"] if "control" in samples["condition"].values else [None],
-                     rep=samples.loc[samples["condition"]!="control", "rep"] if "control" in samples["condition"].values else [None]),
+            expand('output/coverage/{samples}-{rep}.bamCompare.bw', zip,
+                     samples=samples.loc[samples["condition"]!="control", "sample"] if "control" in samples["condition"].values else [],
+                     rep=samples.loc[samples["condition"]!="control", "rep"] if "control" in samples["condition"].values else []),
             expand("output/macs2/{samples}-{rep}_peaks.broadPeak", zip, samples=samples.loc[samples["condition"]!="control", "sample"], 
                                                                 rep=samples.loc[samples["condition"]!="control", "rep"])
 
