@@ -37,7 +37,7 @@ if checkcontrol(samples):
         threads:
             config['threads']
         conda:
-            f"{snake_dir}/envs/deeptools"
+            f"{snake_dir}/envs/deeptools.yaml"
         shell:
             """
             bamCompare -b1 {input.ip} -b2 {input.input} -o {output} -of bigwig \
