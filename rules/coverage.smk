@@ -24,11 +24,6 @@ rule bedGraphToBigWig:
         config["bedGraphToBigWig"]["params"]
     wrapper:
         "v0.69.0/bio/ucsc/bedGraphToBigWig"
-    shell:
-        """
-        bedGraphToBigWig {params} {input.bedGraph} {input.chromsizes} \
-            {output} &> {log}        
-        """
 
 if checkcontrol(samples):
     rule bamCompare:
