@@ -45,3 +45,5 @@ genomecov: "-bg -pc"
 bedGraphToBigWig:
   chrom: "data/Mus_musculus.GRCm38.dna.merge.fa.fai"
   params: ""
+
+bamCompare: "--scaleFactorsMethod SES -bl mm10-blacklist.v2.bed"
