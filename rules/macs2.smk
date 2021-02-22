@@ -1,6 +1,3 @@
-def checkcontrol(samples):
-    return 'control' in samples['condition'].values
-
 if checkcontrol(samples):
     rule macs2:
         input:
