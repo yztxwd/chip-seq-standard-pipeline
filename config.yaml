@@ -34,6 +34,7 @@ samtools_view:
   se: "-F 1796 -b"
 
 filter:
+  skip: true
   # parameters
   pe: "-m pair -f 0 -t 10"
   se: "-m single -f 0 -t 10"

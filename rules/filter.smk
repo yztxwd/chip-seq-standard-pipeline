@@ -34,7 +34,7 @@ rule mapq_filter:
 
 rule samtools_flagstat:
     input:
-        "output/mapped/{smaple}-{rep, [^-]+}-{unit}.flag.filtered.bam"
+        "output/mapped/{sample}-{rep}-{unit}.flag.bam" if config['filter']['skip'] else "output/mapped/{smaple}-{rep, [^-]+}-{unit}.flag.filtered.bam"
     output:
         "qc/flagstat/{sample}-{rep, [^-]+}-{unit, [^.]+}.flagstat"
     wrapper:
@@ -42,7 +42,7 @@ rule samtools_flagstat:
 
 rule samtools_sort_coord:
     input:
-        "output/mapped/{sample}-{rep}-{unit}.flag.filtered.bam"
+        "output/mapped/{sample}-{rep}-{unit}.flag.bam" if config['filter']['skip'] else "output/mapped/{sample}-{rep}-{unit}.flag.filtered.bam"
     output:
         "output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.clean.sort.bam"
     params:
