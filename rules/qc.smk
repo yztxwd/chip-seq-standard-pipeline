@@ -33,7 +33,7 @@ rule multiqc:
         """
         multiqc {params} --force \
           -o {params.multiqc_dir} \
-          -n {output.html} \
+          -n "multiqc.html" \
           {params.fastqc_dir} \
           &> {log}
         """
