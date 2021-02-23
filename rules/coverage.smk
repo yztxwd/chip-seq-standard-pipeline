@@ -12,7 +12,7 @@ rule genomecov_bam:
     conda:
         f"{snake_dir}/envs/bedtools.yaml"
     shell:
-        "genomeCoverageBed {params} -ibam {input} 1> {output} 2> {log}"
+        "genomeCoverageBed {params} -ibam {input} | sort -k1,1 -k2,2n 1> {output} 2> {log}"
 
 rule bedGraphToBigWig:
     input:
