@@ -95,6 +95,7 @@ elif mode == 'single':
 	for read in ifile:
 		if read.mapping_quality < mapq_threshold:
 			filter_mapq += 1
+                        continue
 		
 		ofile.write(read)
 else:
