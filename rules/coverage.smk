@@ -36,7 +36,7 @@ if checkcontrol(samples):
     rule bamCompare:
         input:
             ip="output/mapped/{sample}-{rep}.merge.sort.bam",
-            ip_index="output/mapped/{sample}-rep.merge.sort.bam.bai",
+            ip_index="output/mapped/{sample}-{rep}.merge.sort.bam.bai",
             input=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}-{{rep}}.merge.sort.bam",
             input_index=f"output/mapped/{samples.loc[samples['condition']=='control', 'sample'].iloc[0]}-{{rep}}.merge.sort.bam.bai"
         output:
