@@ -14,6 +14,8 @@ rule fastqc:
         fastqc {params} --quiet \
           --outdir output/qc/fastqc/ {input[0]} \
           > {log}
+        mv output/qc/fastqc/$(basename {input} .fastq.gz)_fastqc.html {output.html}
+        mv output/qc/fastqc/$(basename {input} .fastq.gz)_fastqc.zip {output.zip}
         """
 
 rule multiqc:
