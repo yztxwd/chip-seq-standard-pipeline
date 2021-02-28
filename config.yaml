@@ -28,10 +28,12 @@ bowtie2:
   # extra parameters, see manual: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
   extra: ""
 
+mark_duplicates: ""
+
 samtools_view:
-  # flag used to filter
-  pe: "-F 1804 -b"
-  se: "-F 1796 -b"
+  # flag used to filter reads, 
+  pe: "-F 1804 -b" # Remove duplicates
+  se: "-F 772 -b" # Won't remove duplicates
 
 filter:
   skip: true

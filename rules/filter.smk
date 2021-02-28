@@ -1,6 +1,24 @@
-rule samtools_view:
+rule mark_duplicates:
     input:
         lambda wildcards: "output/mapped/{sample}-{rep}-{unit}.se.bam" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "output/mapped/{sample}-{rep}-{unit}.pe.bam"
+    output:
+        bam=temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.markDuplicates.bam"),
+        metrics="output/picard/markDuplicates/{sample}-{rep, [^-]+}-{unit, [^.]+}.markDuplicates.txt"
+    params:
+        config["mark_duplicates"]
+    conda:
+        f"{snake_dir}/envs/common.yaml"
+    shell:
+        """
+        java -jar picard.jar MarkDuplicates \
+            I={input}\
+            O={output.bam} \
+            M={output.metrics}
+        """
+
+rule samtools_view:
+    input:
+        "output/mapped/{sample}-{rep}-{unit}.markDuplicates.bam"
     output:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.flag.bam")
     params:
