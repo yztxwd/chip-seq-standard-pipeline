@@ -1,6 +1,21 @@
-rule samtools_view:
+rule mark_duplicates:
     input:
         "output/mapped/{sample}-{rep}-{unit}.bam"
+    output:
+        bam=temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.markDuplicates.bam"),
+        metrics="dedup/{sample}.metrics.txt"
+    log:
+        "logs/picard/dedup/{sample}.log"
+    params:
+        ""
+    resources:
+        mem_mb=1024
+    wrapper:
+        "0.72.0/bio/picard/markduplicates"
+
+rule samtools_view:
+    input:
+        "output/mapped/{sample}-{rep}-{unit}.markDuplicates.bam"
     output:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.flag.bam")
     params:
