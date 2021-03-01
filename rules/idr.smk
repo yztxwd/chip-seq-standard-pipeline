@@ -5,7 +5,7 @@ rule idr:
         "output/idr/{sample}.idr.peaks"
     params:
         extra=""
-    logs:
+    log:
         "logs/idr/{sample}.log"
     conda:
         f"{snake_dir}/envs/common.yaml"
