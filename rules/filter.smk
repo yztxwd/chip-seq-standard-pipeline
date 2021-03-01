@@ -10,7 +10,7 @@ rule mark_duplicates:
         f"{snake_dir}/envs/common.yaml"
     shell:
         """
-        java -jar picard.jar MarkDuplicates \
+        picard MarkDuplicates \
             I={input}\
             O={output.bam} \
             M={output.metrics}
