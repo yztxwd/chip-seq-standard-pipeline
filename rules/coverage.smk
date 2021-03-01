@@ -19,7 +19,7 @@ rule bedGraphToBigWig:
         bedGraph="output/coverage/{sample}-{rep}.bedGraph",
         chromsizes=config["bedGraphToBigWig"]["chrom"]
     output:
-        "output/coverage/{sample}-{rep, [^.]+}.bw"
+        "output/coverage/{sample}-{rep, [^.]+}.bgToBw.bw"
     log:
         "logs/bedGraphToBigWig/{sample}-{rep}.log"
     params:
@@ -30,6 +30,22 @@ rule bedGraphToBigWig:
         """
         bedGraphToBigWig {params} {input.bedGraph} {input.chromsizes} \
             {output} &> {log}        
+        """
+
+rule bamCoverage:
+    input:
+        "output/mapped/{sample}-{rep}.merge.sort.bam"
+    output:
+        "output/coverage/{sample}-{rep, [^.]+}.bamCov.bw"
+    log:
+        "logs/bamCoverage/{sample}-{rep}.log"
+    params:
+        config["bamCoverage"]
+    conda:
+        f"{snake_dir}/envs/common.yaml"
+    shell:
+        """
+        bamCoverage --bam {input} --outFileName {output} --outFileFormat bigwig 
         """
 
 if checkcontrol(samples):

@@ -49,4 +49,6 @@ bedGraphToBigWig:
   chrom: "data/Mus_musculus.GRCm38.dna.merge.fa.fai"
   params: ""
 
+bamCoverage: ""
+
 bamCompare: "--scaleFactorsMethod SES -bl data/mm10-blacklist.v2.bed"
