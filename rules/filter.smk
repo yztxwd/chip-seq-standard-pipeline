@@ -13,7 +13,8 @@ rule mark_duplicates:
         picard MarkDuplicates \
             I={input}\
             O={output.bam} \
-            M={output.metrics}
+            M={output.metrics} \
+            {params}
         """
 
 rule samtools_view:
