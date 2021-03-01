@@ -8,7 +8,7 @@ rule trim_pe:
         r1_unpaired=temp("output/trimmed/{sample}-{rep, [^-]+}-{unit}.trim.1.unpaired.fq.gz"),
         r2_unpaired=temp("output/trimmed/{sample}-{rep, [^-]+}-{unit}.trim.2.unpaired.fq.gz")
     log:
-        "output/logs/trimmomatic/{sample}-{rep}-{unit}.trimmomatic.log"
+        "logs/trimmomatic/{sample}-{rep}-{unit}.trimmomatic.log"
     params:
         trimmer=["ILLUMINACLIP:" + config["trimmomatic"]["pe_adapter"] + config["trimmomatic"]["adapter_trimmer"], config["trimmomatic"]["trimmer"]],
         extra=""
@@ -32,7 +32,7 @@ rule trim_se:
     output:
         temp("output/trimmed/{sample}-{rep, [^-]+}-{unit, [^.]+}.trim.fq.gz")
     log:
-        "output/logs/trimmomatic/{sample}-{rep}-{unit}.trimmomatic.log"
+        "logs/trimmomatic/{sample}-{rep}-{unit}.trimmomatic.log"
     params:
         trimmer=["ILLUMINACLIP:" + config["trimmomatic"]["se_adapter"] + config["trimmomatic"]["adapter_trimmer"], config["trimmomatic"]["trimmer"]],
         extra=""

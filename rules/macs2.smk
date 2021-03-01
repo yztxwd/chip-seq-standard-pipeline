@@ -6,8 +6,8 @@ if checkcontrol(samples):
         output:
             "output/macs2/{sample}-{rep, [^.]+}_peaks.broadPeak" if config["mode"]=='histone' else 'output/macs2/{sample}-{rep, [^.]+}_peaks.narrowPeak'
         log:
-            log="output/logs/macs2/{sample}-{rep}.macs2.log",
-            err="output/logs/macs2/{sample}-{rep}.macs2.err"
+            log="logs/macs2/{sample}-{rep}.macs2.log",
+            err="logs/macs2/{sample}-{rep}.macs2.err"
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="output/macs2/{sample}-{rep}",
@@ -25,8 +25,8 @@ else:
         output:
             "output/macs2/{sample}-{rep, [^.]+}_peaks.broadPeak" if config['mode']=='histone' else 'output/macs2/{sample}-{rep, [^.]+}_peaks.narrowPeak'
         log:
-            log="output/logs/macs2/{sample}-{rep}.macs2.log",
-            err="output/logs/macs2/{sample}-{rep}.macs2.err"
+            log="logs/macs2/{sample}-{rep}.macs2.log",
+            err="logs/macs2/{sample}-{rep}.macs2.err"
         params:
             format=lambda wildcards: "BAM" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "BAMPE",
             name="output/macs2/{sample}-{rep}",

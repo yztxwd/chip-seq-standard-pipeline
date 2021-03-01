@@ -6,6 +6,8 @@ rule mark_duplicates:
         metrics="output/picard/markDuplicates/{sample}-{rep, [^-]+}-{unit, [^.]+}.markDuplicates.txt"
     params:
         config["mark_duplicates"]
+    log:
+        "logs/picard/markDuplicates/{sample}-{rep}-{unit}.log"
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:

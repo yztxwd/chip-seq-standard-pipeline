@@ -59,6 +59,8 @@ if checkcontrol(samples):
             "output/coverage/{sample}-{rep}.bamCompare.bw"
         params:
             config['bamCompare']
+        log:
+            "logs/bamCompare/{sample}-{rep}.log"
         threads:
             config['threads']
         conda:

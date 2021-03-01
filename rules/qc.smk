@@ -6,7 +6,7 @@ rule fastqc:
         zip="output/qc/fastqc/{sample}_fastqc.zip"
     params: ""
     log:
-        "output/logs/fastqc/{sample}.fastqc.log"
+        "logs/fastqc/{sample}.fastqc.log"
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
@@ -28,7 +28,7 @@ rule multiqc:
         fastqc_dir="output/qc/fastqc",
         multiqc_dir="output/qc/multiqc/"
     log:
-        "output/logs/multiqc/multiqc.log"
+        "logs/multiqc/multiqc.log"
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
@@ -49,9 +49,11 @@ rule count_size:
     params:
         title="{sample}-{rep}",
         extra="--plotFileFormat png"
+    log:
+        "logs/bamPEFragmentSize/{sample}-{rep}.log"
     threads:
         config["threads"]
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
-        "bamPEFragmentSize --bamfiles {input.bam} --histogram {output.png} {params.extra} -T {params.title} -p {threads}"
+        "bamPEFragmentSize --bamfiles {input.bam} --histogram {output.png} {params.extra} -T {params.title} -p {threads} > {log}"
