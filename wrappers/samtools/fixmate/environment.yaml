@@ -1,3 +1,0 @@
-name: samtools
-dependencies:
-  - samtools ==1.9
