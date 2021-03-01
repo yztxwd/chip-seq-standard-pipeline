@@ -15,7 +15,7 @@ rule trim_pe:
     threads:
         config["threads"]
     conda:
-        f"{snake_dir}/wrappers/trimmomatic/pe/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         trimmomatic PE -threads {threads} {params.extra} \
@@ -39,7 +39,7 @@ rule trim_se:
     threads:
         config["threads"]
     conda:
-        f"{snake_dir}/wrappers/trimmomatic/se/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         trimmomatic SE -threads {threads} {params.extra} \

@@ -8,7 +8,7 @@ rule merge_bam:
     threads:
         config['threads']
     conda:
-        f"{snake_dir}/wrappers/samtools/merge/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         samtools merge -@ {threads} {params} \
@@ -25,7 +25,7 @@ rule merge_bam_sort:
     threads:
         config['threads']
     conda:
-        f"{snake_dir}/wrappers/samtools/sort/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         samtools sort {params} -@ {threads} -o {output} {input}

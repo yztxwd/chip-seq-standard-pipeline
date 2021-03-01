@@ -25,7 +25,7 @@ rule samtools_view:
         lambda wildcards: ((config["samtools_view"]["se"] if is_single_end(**wildcards) 
             else config["samtools_view"]["pe"])) + " -@ " + str(config["threads"])
     conda:
-        f"{snake_dir}/wrappers/samtools/view/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         samtools view {params} {input} > {output}
@@ -41,7 +41,7 @@ rule samtools_sort:
     threads:
         config['threads']
     conda:
-        f"{snake_dir}/wrappers/samtools/sort/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         samtools sort {params} -@ {threads} -o {output} {input}
@@ -70,7 +70,7 @@ rule samtools_sort_coord:
     threads:
         config['threads']
     conda:
-        f"{snake_dir}/wrappers/samtools/sort/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         samtools sort {params} -@ {threads} -o {output} {input}
@@ -84,7 +84,7 @@ rule samtools_index:
     params:
         ""
     conda:
-        f"{snake_dir}/wrappers/samtools/index/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         samtools index {params} {input} {output}
@@ -96,7 +96,7 @@ rule samtools_flagstat:
     output:
         "qc/flagstat/{sample}-{rep, [^-]+}-{unit, [^.]+}.flagstat"
     conda:
-        f"{snake_dir}/wrappers/samtools/flagstat/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         samtools flagstat {input} > {output}

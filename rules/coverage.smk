@@ -10,7 +10,7 @@ rule genomecov_bam:
     params:
         config["genomecov"]
     conda:
-        f"{snake_dir}/envs/bedtools.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         "genomeCoverageBed {params} -ibam {input} | sort -k1,1 -k2,2n 1> {output} 2> {log}"
 
@@ -25,7 +25,7 @@ rule bedGraphToBigWig:
     params:
         config["bedGraphToBigWig"]["params"]
     conda:
-        f"{snake_dir}/envs/ucsc.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         bedGraphToBigWig {params} {input.bedGraph} {input.chromsizes} \
@@ -46,7 +46,7 @@ if checkcontrol(samples):
         threads:
             config['threads']
         conda:
-            f"{snake_dir}/envs/deeptools.yaml"
+            f"{snake_dir}/envs/common.yaml"
         shell:
             """
             bamCompare -b1 {input.ip} -b2 {input.input} -o {output} -of bigwig \

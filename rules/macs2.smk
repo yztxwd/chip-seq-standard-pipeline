@@ -14,7 +14,7 @@ if checkcontrol(samples):
             extra=config["macs2"],
             mode="--broad" if config["mode"]=="histone" else ""
         conda:
-            "../envs/macs2.yaml"
+            f"{snake_dir}/envs/common.yaml"
         shell:
             "macs2 callpeak -t {input.treatment} -c {input.control} -f {params.format} -n {params.name} {params.mode} {params.extra} 1> {log.log} 2> {log.err} "
     
@@ -33,6 +33,6 @@ else:
             extra=config["macs2"],
             mode="--broad" if config["mode"]=="histone" else ""
         conda:
-            "../envs/macs2.yaml"
+            f"{snake_dir}/envs/common.yaml"
         shell:
             "macs2 callpeak -t {input.treatment} -f {params.format} -n {params.name} {params.mode} {params.extra} 1> {log.log} 2> {log.err}"

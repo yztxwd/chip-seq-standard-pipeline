@@ -12,7 +12,7 @@ rule bowtie2_mapping_pe:
     threads: 
         config["threads"]
     conda:
-        f"file:{snake_dir}/wrappers/bowtie2/align/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         bowtie2 --threads {threads} {params.extra} \
@@ -33,7 +33,7 @@ rule bowtie2_mapping_se:
     threads: 
         config["threads"]
     conda:
-        f"file:{snake_dir}/wrappers/bowtie2/align/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         bowtie2 --threads {threads} {params.extra} \

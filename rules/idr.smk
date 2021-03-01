@@ -6,6 +6,6 @@ rule idr:
     params:
         extra=""
     conda:
-        "../envs/idr.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         "idr --samples {input} --input-file-type narrowPeak --output-file {output} {params.extra}"

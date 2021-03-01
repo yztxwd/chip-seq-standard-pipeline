@@ -8,7 +8,7 @@ rule fastqc:
     log:
         "output/logs/fastqc/{sample}.fastqc.log"
     conda:
-        f"{snake_dir}/wrappers/fastqc/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         fastqc {params} --quiet \
@@ -30,7 +30,7 @@ rule multiqc:
     log:
         "output/logs/multiqc/multiqc.log"
     conda:
-        f"{snake_dir}/wrappers/multiqc/environment.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         """
         multiqc {params} --force \
@@ -52,6 +52,6 @@ rule count_size:
     threads:
         config["threads"]
     conda:
-        "../envs/deeptools.yaml"
+        f"{snake_dir}/envs/common.yaml"
     shell:
         "bamPEFragmentSize --bamfiles {input.bam} --histogram {output.png} {params.extra} -T {params.title} -p {threads}"
