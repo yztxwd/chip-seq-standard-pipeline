@@ -34,7 +34,8 @@ rule bedGraphToBigWig:
 
 rule bamCoverage:
     input:
-        "output/mapped/{sample}-{rep}.merge.sort.bam"
+        bam="output/mapped/{sample}-{rep}.merge.sort.bam",
+        bai="output/mapped/{sample}-{rep}.merge.sort.bam.bai"
     output:
         "output/coverage/{sample}-{rep, [^.]+}.bamCov.bw"
     log:
@@ -45,7 +46,7 @@ rule bamCoverage:
         f"{snake_dir}/envs/common.yaml"
     shell:
         """
-        bamCoverage --bam {input} --outFileName {output} --outFileFormat bigwig {params}
+        bamCoverage --bam {input.bam} --outFileName {output} --outFileFormat bigwig {params}
         """
 
 if checkcontrol(samples):
