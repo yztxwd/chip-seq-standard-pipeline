@@ -45,7 +45,7 @@ rule bamCoverage:
         f"{snake_dir}/envs/common.yaml"
     shell:
         """
-        bamCoverage --bam {input} --outFileName {output} --outFileFormat bigwig 
+        bamCoverage --bam {input} --outFileName {output} --outFileFormat bigwig {params}
         """
 
 if checkcontrol(samples):
