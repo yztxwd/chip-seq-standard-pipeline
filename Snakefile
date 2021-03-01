@@ -22,8 +22,6 @@ if config["mode"] == "tf":
     rule all:
         input:
             "output/qc/multiqc/multiqc.html",
-            expand("output/mapped/{samples}-{rep}-{unit}.clean.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"], unit=samples["unit"]),
-            expand("output/mapped/{samples}-{rep}.merge.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/qc/bamPEFragmentSize/{samples}-{rep}.hist.png", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bgToBw.bw", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bamCov.bw", zip, samples=samples["sample"], rep=samples["rep"]),
@@ -37,8 +35,6 @@ else:
     rule all:
         input:
             "output/qc/multiqc/multiqc.html",
-            expand("output/mapped/{samples}-{rep}-{unit}.clean.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"], unit=samples["unit"]),
-            expand("output/mapped/{samples}-{rep}.merge.sort.bam.bai", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/qc/bamPEFragmentSize/{samples}-{rep}.hist.png", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bgToBw.bw", zip, samples=samples["sample"], rep=samples["rep"]),
             expand("output/coverage/{samples}-{rep}.bamCov.bw", zip, samples=samples["sample"], rep=samples["rep"]),
