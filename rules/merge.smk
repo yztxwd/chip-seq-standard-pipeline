@@ -8,6 +8,8 @@ rule merge_bam:
         ""
     threads:
         config['threads']
+    resources:
+        cpus=config['threads']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:

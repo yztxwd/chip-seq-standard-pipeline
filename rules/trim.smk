@@ -14,6 +14,8 @@ rule trim_pe:
         extra=""
     threads:
         config["threads"]
+    resources:
+        cpus=config['threads']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
@@ -38,6 +40,8 @@ rule trim_se:
         extra=""
     threads:
         config["threads"]
+    resources:
+        cpus=config['threads']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:

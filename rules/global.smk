@@ -15,6 +15,8 @@ rule samtools_sort_name:
         "-n"
     threads:
         config['threads']
+    resources:
+        cpus=config['threads']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
@@ -31,6 +33,8 @@ rule samtools_sort_coord:
         ""
     threads:
         config['threads']
+    resources:
+        cpus=config['threads']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:

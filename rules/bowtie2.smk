@@ -11,6 +11,8 @@ rule bowtie2_mapping_pe:
         extra=config["bowtie2"]["extra"]
     threads: 
         config["threads"]
+    resources:
+        cpus=config["threads"]
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
@@ -32,6 +34,8 @@ rule bowtie2_mapping_se:
         extra=config["bowtie2"]["extra"]
     threads: 
         config["threads"]
+    resources:
+        cpus=config["threads"]
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:

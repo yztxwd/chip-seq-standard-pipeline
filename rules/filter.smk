@@ -26,12 +26,16 @@ rule samtools_view:
         temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.flag.bam")
     params:
         lambda wildcards: ((config["samtools_view"]["se"] if is_single_end(**wildcards) 
-            else config["samtools_view"]["pe"])) + " -@ " + str(config["threads"])
+            else config["samtools_view"]["pe"]))
+    threads:
+        config['threads']
+    resources:
+        cpus=config['threads']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
         """
-        samtools view {params} {input} > {output}
+        samtools view {params} -@ {threads} {input} > {output}
         """
 
 rule mapq_filter:
