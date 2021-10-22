@@ -18,7 +18,7 @@ rule bwa_mapping_pe:
     shell:
         """
         bwa mem -t {threads} {params.extra} \
-            -x {params.index} {input[0]} {input[1]} \
+            {params.index} {input[0]} {input[1]} \
             | samtools view -Sbh -o {output} > {log}
         """
 
@@ -42,6 +42,6 @@ rule bwa_mapping_se:
     shell:
         """
         bwa mem -t {threads} {params.extra} \
-            -x {params.index} {input} \
+            {params.index} {input} \
             | samtools view -Sbh -o {output} > {log}
         """  
