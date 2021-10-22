@@ -23,7 +23,7 @@ rule fastp_pe:
         """
         fastp -i {input.r1} -I {input.r2} \
           -o {output.r1} -O {output.r2} \
-          --unpaired1 {output.r1_unpaired} --unpaired2 {output.r1_unpaired} \
+          --unpaired1 {output.r1_unpaired} --unpaired2 {output.r2_unpaired} \
           --adapter_fasta {params.adapter} \
           {params.extra} > {log}
         """
