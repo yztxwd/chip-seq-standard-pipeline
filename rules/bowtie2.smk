@@ -18,7 +18,7 @@ def align_se_find_input(wildcards):
     if config["skiptrim"]:
         return "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"]
     else:
-        return "output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.fq.gz" 
+        return f"output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.fq.gz" 
     
 rule bowtie2_mapping_pe:
     input:
