@@ -53,6 +53,9 @@ rule count_size:
         "logs/bamPEFragmentSize/{sample}-{rep}.log"
     threads:
         config["threads"]
+    resources:
+        cpus=config["threads"],
+        mem=config["mem"]
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
