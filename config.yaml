@@ -7,6 +7,7 @@ samples: samples.tsv
 units: units.tsv
 
 mode: tf # histone or tf, "--broad" option will be enabled in macs2 under histone mode
+aligner: "bowtie2" # bowtie2 or bwa
 
 threads: 32
 
@@ -23,18 +24,29 @@ trimmomatic:
   adapter_trimmer: ":2:30:10"
 
 bowtie2:
-  # the bowtie2 index
-  index: "path/to/bowtie2/human/index"
+  # bowtie2 index
+  index: "path/to/bowtie2/index"
   # extra parameters, see manual: http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml
+  extra: ""
+
+# bwa-mem
+bwa:
+  # bwa index
+  index: "path/to/bwa/index"
+  # extra parameters, see manual: http://bio-bwa.sourceforge.net/bwa.shtml
   extra: ""
 
 mark_duplicates: ""
 
 samtools_view:
-  # flag used to filter reads, 
+  # flag used to filter reads, remove inproperly paired reads or duplicates
+  # user can adjust flag to fit different requirements
   pe: "-F 1804 -b" # Remove duplicates
   se: "-F 772 -b" # Won't remove duplicates
 
+# filter pair-end reads by 1. -t: Both reads > cetern MAPQ; 2. -f: fragment size < threshold 3. two reads must be on the same chromosome
+# this is skipped by default, enable when in need
+# CAUTION: Don't specify MAPQ threshold > 0 when using BWA since BWA doesn't output meaningful MAPQ!!!
 filter:
   skip: true
   # parameters

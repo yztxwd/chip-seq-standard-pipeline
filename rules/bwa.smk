@@ -1,46 +1,46 @@
-rule bowtie2_mapping_pe:
+rule bwa_mapping_pe:
     input:
         r1=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.1.fq.gz",
         r2=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq2"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.2.fq.gz"
     output:
-        temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.pe.bowtie2.bam")
+        temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.pe.bwa.bam")
     log:
-        "logs/bowtie2/{sample}-{rep, [^-]+}-{unit}.log"
+        "logs/bwa/{sample}-{rep, [^-]+}-{unit}.log"
     params:
-        index=lambda wildcards: config["bowtie2"]["index"],
-        extra=config["bowtie2"]["extra"]
+        index=lambda wildcards: config["bwa"]["index"],
+        extra=config["bwa"]["extra"]
     threads: 
         config["threads"]
     resources:
         cpus=config["threads"]
     conda:
-        f"{snake_dir}/envs/common.yaml"
+        f"{snake_dir}/envs/bwa.yaml"
     shell:
         """
-        bowtie2 --threads {threads} {params.extra} \
-            -x {params.index} -1 {input.r1} -2 {input.r2} \
-            | samtools view -Sbh -o {output} &> {log}
+        bwa mem -t {threads} {params.extra} \
+            -x {params.index} {input.r1} {input.r2} \
+            | samtools view -Sbh -o {output} > {log}
         """
 
-rule bowtie2_mapping_se:
+rule bwa_mapping_se:
     input:
         lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz"
     output:
-        temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.se.bowtie2.bam")
+        temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.se.bwa.bam")
     log:
-        "logs/bowtie2/{sample}-{rep, [^-]+}-{unit}.log"
+        "logs/bwa/{sample}-{rep, [^-]+}-{unit}.log"
     params:
-        index=lambda wildcards: config["bowtie2"]["index"],
-        extra=config["bowtie2"]["extra"]
+        index=lambda wildcards: config["bwa"]["index"],
+        extra=config["bwa"]["extra"]
     threads: 
         config["threads"]
     resources:
         cpus=config["threads"]
     conda:
-        f"{snake_dir}/envs/common.yaml"
+        f"{snake_dir}/envs/bwa.yaml"
     shell:
         """
-        bowtie2 --threads {threads} {params.extra} \
-            -x {params.index} -U {input} \
-            | samtools view -Sbh -o {output} &> {log}
+        bwa mem -t {threads} {params.extra} \
+            -x {params.index} {input} \
+            | samtools view -Sbh -o {output} > {log}
         """  

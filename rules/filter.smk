@@ -1,6 +1,13 @@
+def mark_duplicates_find_input(wildcards):
+    global samples
+    global config
+    sx1 = "pe" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "se"
+    sx2 = config["aligner"]
+    return f"output/mapped/{{sample}}-{{rep}}-{{unit}}.{sx1}.{sx2}.sort.bam"
+
 rule mark_duplicates:
     input:
-        lambda wildcards: "output/mapped/{sample}-{rep}-{unit}.se.sort.bam" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "output/mapped/{sample}-{rep}-{unit}.pe.sort.bam"
+        lambda wildcards: mark_duplicates_find_input(wildcards)
     output:
         bam=temp("output/mapped/{sample}-{rep, [^-]+}-{unit, [^.]+}.markDuplicates.bam"),
         metrics="output/picard/markDuplicates/{sample}-{rep, [^-]+}-{unit, [^.]+}.markDuplicates.txt"
