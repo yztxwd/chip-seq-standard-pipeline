@@ -8,7 +8,7 @@ def align_pe_find_input(wildcards):
                 "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq2"]]
     else:
         return [f"output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.1.fq.gz",
-                f"output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.1.fq.gz"]
+                f"output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.2.fq.gz"]
 
 def align_se_find_input(wildcards):
     global samples

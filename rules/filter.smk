@@ -1,7 +1,7 @@
 def mark_duplicates_find_input(wildcards):
     global samples
     global config
-    sx1 = "pe" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "se"
+    sx1 = "se" if any(pd.isnull(samples.loc[wildcards.sample, "fq2"])) else "pe"
     sx2 = config["aligner"]
     return f"output/mapped/{{sample}}-{{rep}}-{{unit}}.{sx1}.{sx2}.sort.bam"
 
