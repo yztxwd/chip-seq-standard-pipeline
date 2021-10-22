@@ -8,6 +8,8 @@ units: units.tsv
 
 mode: tf # histone or tf, "--broad" option will be enabled in macs2 under histone mode
 aligner: "bowtie2" # bowtie2 or bwa
+skiptrim: false
+trimmer: "trimmomatic" # trimmomatic or fastp
 
 # specify the resources available for computational heavy rules, including: trimmomatic, samtools, bowtie2, bwa, deeptools...
 threads: 20
@@ -17,13 +19,17 @@ multiqc:
   params: ""
 
 trimmomatic:
-  # skip trimming: false or true
-  skip: false
   # the trimming parameter, see manual: http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf
   trimmer: "LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:15"
   pe_adapter: "data/TruSeq3-PE.fa"
   se_adapter: "data/TruSeq3-SE.fa"
   adapter_trimmer: ":2:30:10"
+
+fastp:
+  # manual: https://github.com/OpenGene/fastp
+  pe_adapter: "data/TruSeq3-PE.fa"
+  se_adapter: "data/TruSeq3-SE.fa"
+  extra: "-g"
 
 bowtie2:
   # bowtie2 index

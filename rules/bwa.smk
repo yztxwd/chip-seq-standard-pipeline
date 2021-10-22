@@ -1,7 +1,6 @@
 rule bwa_mapping_pe:
     input:
-        r1=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.1.fq.gz",
-        r2=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq2"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.2.fq.gz"
+        lambda wildcards: align_pe_find_input(wildcards)
     output:
         temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.pe.bwa.bam")
     log:
@@ -19,13 +18,13 @@ rule bwa_mapping_pe:
     shell:
         """
         bwa mem -t {threads} {params.extra} \
-            -x {params.index} {input.r1} {input.r2} \
+            -x {params.index} {input[0]} {input[1]} \
             | samtools view -Sbh -o {output} > {log}
         """
 
 rule bwa_mapping_se:
     input:
-        lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz"
+        lambda wildcards: align_se_find_input(wildcards)
     output:
         temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.se.bwa.bam")
     log:

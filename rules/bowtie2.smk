@@ -1,7 +1,28 @@
+def align_pe_find_input(wildcards):
+    global samples
+    global config
+
+    trimmer=config["trimmer"]
+    if config["skiptrim"]:
+        return ["data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"],
+                "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq2"]]
+    else:
+        return [f"output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.1.fq.gz",
+                f"output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.1.fq.gz"]
+
+def align_se_find_input(wildcards):
+    global samples
+    global config
+
+    trimmer=config["trimmer"]
+    if config["skiptrim"]:
+        return "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"]
+    else:
+        return "output/trimmed/{{sample}}-{{rep}}-{{unit}}.{trimmer}.fq.gz" 
+    
 rule bowtie2_mapping_pe:
     input:
-        r1=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.1.fq.gz",
-        r2=lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq2"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.2.fq.gz"
+        lambda wildcards: align_pe_find_input(wildcards)
     output:
         temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.pe.bowtie2.bam")
     log:
@@ -19,13 +40,13 @@ rule bowtie2_mapping_pe:
     shell:
         """
         bowtie2 --threads {threads} {params.extra} \
-            -x {params.index} -1 {input.r1} -2 {input.r2} \
+            -x {params.index} -1 {input[0]} -2 {input[1]} \
             | samtools view -Sbh -o {output} &> {log}
         """
 
 rule bowtie2_mapping_se:
     input:
-        lambda wildcards: "data/" + samples.loc[(wildcards.sample, wildcards.rep, wildcards.unit), "fq1"] if config['trimmomatic']['skip'] else "output/trimmed/{sample}-{rep}-{unit}.trim.fq.gz"
+        lambda wildcards: align_se_find_input(wildcards)
     output:
         temp("output/mapped/{sample}-{rep}-{unit, [^.]+}.se.bowtie2.bam")
     log:
