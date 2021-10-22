@@ -9,7 +9,9 @@ units: units.tsv
 mode: tf # histone or tf, "--broad" option will be enabled in macs2 under histone mode
 aligner: "bowtie2" # bowtie2 or bwa
 
-threads: 32
+# specify the resources available for computational heavy rules, including: trimmomatic, samtools, bowtie2, bwa, deeptools...
+threads: 20
+mem: 20
 
 multiqc:
   params: ""

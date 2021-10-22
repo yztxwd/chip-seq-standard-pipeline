@@ -12,7 +12,8 @@ rule bwa_mapping_pe:
     threads: 
         config["threads"]
     resources:
-        cpus=config["threads"]
+        cpus=config["threads"],
+        mem=config['mem']
     conda:
         f"{snake_dir}/envs/bwa.yaml"
     shell:
@@ -35,7 +36,8 @@ rule bwa_mapping_se:
     threads: 
         config["threads"]
     resources:
-        cpus=config["threads"]
+        cpus=config["threads"],
+        mem=config['mem']
     conda:
         f"{snake_dir}/envs/bwa.yaml"
     shell:

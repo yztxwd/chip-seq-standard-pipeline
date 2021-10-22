@@ -42,11 +42,16 @@ rule bamCoverage:
         "logs/bamCoverage/{sample}-{rep}.log"
     params:
         config["bamCoverage"]
+    threads:
+        config["threads"]
+    resources:
+        cpus=config["threads"],
+        mem=config["mem"]
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
         """
-        bamCoverage --bam {input.bam} --outFileName {output} --outFileFormat bigwig {params}
+        bamCoverage --bam {input.bam} --outFileName {output} --outFileFormat bigwig {params} -p {threads}
         """
 
 if checkcontrol(samples):
@@ -64,6 +69,9 @@ if checkcontrol(samples):
             "logs/bamCompare/{sample}-{rep}.log"
         threads:
             config['threads']
+        resources:
+            cpus=config['threads'],
+            mem=config['mem']
         conda:
             f"{snake_dir}/envs/common.yaml"
         shell:

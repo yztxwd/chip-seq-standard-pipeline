@@ -16,7 +16,8 @@ rule samtools_sort_name:
     threads:
         config['threads']
     resources:
-        cpus=config['threads']
+        cpus=config['threads'],
+        mem=config['mem']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
@@ -34,7 +35,8 @@ rule samtools_sort_coord:
     threads:
         config['threads']
     resources:
-        cpus=config['threads']
+        cpus=config['threads'],
+        mem=config['mem']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
@@ -49,9 +51,14 @@ rule samtools_index:
         "{header}.bam.bai"
     params:
         ""
+    threads:
+        config['threads']
+    resources:
+        cpus=config['threads'],
+        mem=config['mem']
     conda:
         f"{snake_dir}/envs/common.yaml"
     shell:
         """
-        samtools index {params} {input} {output}
+        samtools index -@ {threads} {params} {input} {output}
         """
