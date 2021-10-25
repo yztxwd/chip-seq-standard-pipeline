@@ -49,8 +49,8 @@ mark_duplicates: ""
 samtools_view:
   # flag used to filter reads, remove inproperly paired reads or duplicates
   # user can adjust flag to fit different requirements
-  pe: "-F 1804 -b" # Remove duplicates
-  se: "-F 772 -b" # Won't remove duplicates
+  pe: "-F 3852 -b" # Remove duplicates and supplementary alignment
+  se: "-F 2820 -b" # Won't remove duplicates and supplementary alignment
 
 # filter pair-end reads by 1. -t: Both reads > cetern MAPQ; 2. -f: fragment size < threshold 3. two reads must be on the same chromosome
 # this is skipped by default, enable when in need
