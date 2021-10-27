@@ -25,7 +25,7 @@ rule fastp_pe:
           -o {output.r1} -O {output.r2} \
           --unpaired1 {output.r1_unpaired} --unpaired2 {output.r2_unpaired} \
           --adapter_fasta {params.adapter} \
-          {params.extra} > {log}
+          {params.extra} &> {log}
         """
 
 rule fastp_se:
@@ -34,7 +34,7 @@ rule fastp_se:
     output:
         temp("output/trimmed/{sample}-{rep, [^-]+}-{unit, [^.]+}.fastp.fq.gz")
     log:
-        "logs/trimmomatic/{sample}-{rep}-{unit}.trimmomatic.log"
+        "logs/fastp/{sample}-{rep}-{unit}.fastp.log"
     params:
         adapter=config["fastp"]["se_adapter"],
         extra=config["fastp"]["extra"]
@@ -50,6 +50,6 @@ rule fastp_se:
         fastp -i {input} \
           -o {output} \
           --adapter_fasta {params.adapter} \
-          {params.extra} > {log}
+          {params.extra} &> {log}
         """
 
