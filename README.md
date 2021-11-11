@@ -1,7 +1,7 @@
 # Snakemake pipeline for ChIP-seq data
 
 
-@author Jianyu Yang, Southern Medical University
+@author Jianyu Yang, Pennsylvania State University
 
 # Dependency
 
