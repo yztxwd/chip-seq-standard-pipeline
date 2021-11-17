@@ -1,17 +1,17 @@
+#### snakemake-pipeline-general >>>####
 # path or URL to sample sheet (TSV format, columns: sample, condition, ...)
 samples: samples.tsv
 # path or URL to sequencing unit sheet (TSV format, columns: sample, unit, fq1, fq2, strandedness).
 # Units are techinical replicates (e.g. lanes, or resequencing of the same biological sample). If the 
 # column "strandedness" is present (optional), value can be empty or has one of these values: none, yes
 # or reverse.
-units: units.tsv
 
-mode: tf # histone or tf, "--broad" option will be enabled in macs2 under histone mode
 aligner: "bowtie2" # bowtie2 or bwa
 skiptrim: false
 trimmer: "trimmomatic" # trimmomatic or fastp
 
 # specify the resources available for computational heavy rules, including: trimmomatic, samtools, bowtie2, bwa, deeptools...
+nodes: 1
 threads: 20
 mem: 20
 
@@ -61,8 +61,6 @@ filter:
   pe: "-m pair -f 0 -t 10"
   se: "-m single -f 0 -t 10"
 
-macs2: "--gsize mm -q 0.05"
-
 genomecov: "-bg -pc"
 
 bedGraphToBigWig:
@@ -72,3 +70,12 @@ bedGraphToBigWig:
 bamCoverage: ""
 
 bamCompare: "--scaleFactorsMethod SES -bl data/mm10-blacklist.v2.bed"
+####<<<< snakemake-pipeline-general ####
+
+#### chip-seq-standard-pipeline >>>>####
+mode: "tf" # or histone
+
+macs2: "--gsize mm -q 0.05"
+
+idr: ""
+####<<<< chip-seq-standard-pipeline ####
