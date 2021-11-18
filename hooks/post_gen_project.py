@@ -1,8 +1,8 @@
 import subprocess
 
 def main():
-    repo = "{{cookiecutter.git_submodule}}".strip().split("/")
-    repo_name = repo.split("/")[-1].replace(".git", "")
+    repo = "{{cookiecutter.git_submodule}}"
+    repo_name = repo.strip().split("/")[-1].replace(".git", "")
 
     print(repo)
 
