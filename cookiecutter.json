@@ -20,5 +20,6 @@
     "_copy_without_render": [
         "*.smk",
         "*Snakefile"
-    ]
+    ],
+    "git_submodule": "https://github.com/yztxwd/snakemake-pipeline-general.git"
 }
