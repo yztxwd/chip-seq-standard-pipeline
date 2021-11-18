@@ -1,0 +1,24 @@
+{
+    "directory_name": "chip-seq-standard-pipeline",
+    "aligner": ["bowtie2", "bwa"],
+    "skiptrim": [false, true],
+    "trimmer": ["trommomatic", "fastp"],
+    "nodes": 1,
+    "threads": 20,
+    "mem": 32,
+    "pe_adapter": "path/to/PE/adapter",
+    "se_adapter": "path/to/SE/adapter",
+    "fastp": "-g # Ignore this if you already specified skiptrim or using trimmomatic",
+    "bowtie2_index": "path/to/bowtie2/index",
+    "bowtie2": "",
+    "bwa_index": "path/to/bwa/index",
+    "bwa_mem": "",
+    "skipfilter": [true, false],
+    "genome_fai": "path/to/genome/fai",
+    "mode": ["tf", "histone"],
+    "macs2_gsize": "mm",
+    "_copy_without_render": [
+        "*.smk",
+        "*Snakefile"
+    ]
+}
