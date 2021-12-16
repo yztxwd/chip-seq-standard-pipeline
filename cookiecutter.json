@@ -1,6 +1,5 @@
 {
-    " ": "_________ .__    ._____________            ____________________________   \n\\_   ___ \\|  |__ |   \\______   \\          /   _____/\\_   _____/\\_____  \\  \n/    \\  \\/|  |  \\|   ||     ___/  ______  \\_____  \\  |    __)_  /  / \\  \\ \n\\     \\___|   Y  \\   ||    |     /_____/  /        \\ |        \\/   \\_/.  \\\n \\______  /___|  /___||____|             /_______  //_______  /\\_____\\ \\_/\n        \\/     \\/                                \\/         \\/        \\__>\n",
-    "  ": "Snakemake Pipeline] for ChIP-seq like data\nAuthor: Jianyu Yang, Pennsylvania State University\nPlease press enter to continue]",
+    " ": "_________ .__    ._____________            ____________________________   \n\\_   ___ \\|  |__ |   \\______   \\          /   _____/\\_   _____/\\_____  \\  \n/    \\  \\/|  |  \\|   ||     ___/  ______  \\_____  \\  |    __)_  /  / \\  \\ \n\\     \\___|   Y  \\   ||    |     /_____/  /        \\ |        \\/   \\_/.  \\\n \\______  /___|  /___||____|             /_______  //_______  /\\_____\\ \\_/\n        \\/     \\/                                \\/         \\/        \\__>\nSnakemake Pipeline for ChIP-seq like data\nAuthor: Jianyu Yang, Pennsylvania State University\nPlease press enter to continue]",
     "directory_name": "chip-seq-standard-pipeline",
     "aligner": [
         "bowtie2",
