@@ -34,7 +34,7 @@
     ],
     "macs2_gsize": "mm",
     "blacklist": "path/to/blacklist",
-    "transcription": "GTF or BED gene/transcript annotation file",
+    "transcriptome": "GTF or BED gene/transcript annotation file",
     "_copy_without_render": [
         "*.smk",
         "*Snakefile"
