@@ -20,9 +20,9 @@
     "se_adapter": "path/to/SE/adapter",
     "fastp": "-g is suggested to handle poly-G issue on new sequencer",
     "bowtie2_index": "path/to/bowtie2/index",
-    "bowtie2": "Extra bowtie2 parameters you want",
+    "bowtie2": "",
     "bwa_index": "path/to/bwa/index",
-    "bwa_mem": "Extra BWA MEM parameters you want",
+    "bwa_mem": "",
     "skipfilter": [
         true,
         false
