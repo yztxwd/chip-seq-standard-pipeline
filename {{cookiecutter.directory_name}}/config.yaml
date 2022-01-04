@@ -6,6 +6,9 @@ samples: samples.tsv
 # column "strandedness" is present (optional), value can be empty or has one of these values: none, yes
 # or reverse.
 
+downloads: downloads.tsv
+aspera_private_key: "{{cookiecutter.aspera_private_key}}"
+
 aligner: "{{cookiecutter.aligner}}" # bowtie2 or bwa
 skiptrim: {{cookiecutter.skiptrim}}
 trimmer: "{{cookiecutter.trimmer}}" # trimmomatic or fastp
