@@ -39,5 +39,6 @@
         "*.smk",
         "*Snakefile"
     ],
+	"aspera_private_key": "",
     "git_submodule": "https://github.com/yztxwd/snakemake-pipeline-general.git"
 }
