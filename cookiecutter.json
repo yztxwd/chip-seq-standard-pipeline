@@ -32,6 +32,7 @@
         "tf",
         "histone"
     ],
+    "bamCoverage": "--extendReads",
     "macs2_gsize": "mm",
     "blacklist": "path/to/blacklist",
     "transcriptome": "GTF or BED gene/transcript annotation file",
