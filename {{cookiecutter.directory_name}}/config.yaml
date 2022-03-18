@@ -70,7 +70,7 @@ bedGraphToBigWig:
   chrom: "{{cookiecutter.genome_fai}}"
   params: ""
 
-bamCoverage: ""
+bamCoverage: "{{cookiecutter.bamCoverage}}"
 
 bamCompare: "--scaleFactorsMethod SES -bl {{cookiecutter.blacklist}}"
 
