@@ -4,7 +4,7 @@ from cookiecutter.main import cookiecutter
 def main():
     # test
     cookiecutter(
-        'https://github.com/yztxwd/snakemake-pipeline-general.git',
+        'https://github.com/yztxwd/snakemake-pipeline-general',
     )
     
 
