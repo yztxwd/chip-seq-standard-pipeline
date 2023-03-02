@@ -1,6 +1,7 @@
 {
     " ": "Welcome!]\n\n_________ .__    ._____________            ____________________________   \n\\_   ___ \\|  |__ |   \\______   \\          /   _____/\\_   _____/\\_____  \\  \n/    \\  \\/|  |  \\|   ||     ___/  ______  \\_____  \\  |    __)_  /  / \\  \\ \n\\     \\___|   Y  \\   ||    |     /_____/  /        \\ |        \\/   \\_/.  \\\n \\______  /___|  /___||____|             /_______  //_______  /\\_____\\ \\_/\n        \\/     \\/                                \\/         \\/        \\__>\n\nSnakemake Pipeline for ChIP-seq like data\nAuthor: Jianyu Yang, Pennsylvania State University\n[Please press enter to continue",
     "directory_name": "chip-seq-standard-pipeline",
+<<<<<<< HEAD
     "aligner": [
         "bowtie2",
         "bwa"
@@ -34,13 +35,12 @@
     ],
     "bamCoverage_pe": "--extendReads",
     "bamCoverage_se": "--extendReads 200",
+=======
+    "mode": ["tf", "histone"],
+>>>>>>> improve-integrateGeneralPipelineConfig
     "macs2_gsize": "mm",
-    "blacklist": "path/to/blacklist",
-    "transcriptome": "GTF or BED gene/transcript annotation file",
     "_copy_without_render": [
         "*.smk",
         "*Snakefile"
-    ],
-	"aspera_private_key": "",
-    "git_submodule": "https://github.com/yztxwd/snakemake-pipeline-general.git"
+    ]
 }
