@@ -1,8 +1,10 @@
+import shutil
 import subprocess
 
 def main():
     # concatenate config file
-    subprocess.check_call(['cat', 'snakemake-pipeline-general/config.yaml', '>>', 'config.yaml'], shell=True)
+    with open('snakemake-pipeline-general/config.yaml') as fi, open('config.yaml', 'a') as fo:
+        shutil.copyfileobj(fi, fo)
     
     # init the git
     subprocess.check_call(['git', 'init'])
