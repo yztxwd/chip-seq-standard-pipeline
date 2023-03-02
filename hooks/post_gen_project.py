@@ -1,16 +1,15 @@
+import shutil
 import subprocess
 
 def main():
-    # pull necessary submodule
-    repo = "{{cookiecutter.git_submodule}}"
-    repo_name = repo.strip().split("/")[-1].replace(".git", "")
-
-    print(repo)
-
-    subprocess.check_call(['git', 'init'])
-    subprocess.check_call(['git', 'checkout', '-b', 'main'])
-    subprocess.check_call(['rm', '-rf', f'{repo_name}'])
-    subprocess.check_call(['git', 'submodule', 'add', f'{repo}'])
+    # concatenate config file
+    with open('snakemake-pipeline-general/config.yaml') as fi, open('config.yaml', 'a') as fo:
+        shutil.copyfileobj(fi, fo)
+    
+    # init the git
+    subprocess.check_call(['git', 'init'], stdout=subprocess.DEVNULL)
+    subprocess.check_call(['git', 'add', '.'], stdout=subprocess.DEVNULL)
+    subprocess.check_call(['git', 'commit', '-m', '"first commit"'], stdout=subprocess.DEVNULL)
 
 if __name__ == '__main__':
     main()
