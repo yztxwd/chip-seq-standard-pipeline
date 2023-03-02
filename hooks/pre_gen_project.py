@@ -1,10 +1,15 @@
 import subprocess
+from cookiecutter.main import cookiecutter
 
 def main():
     # test
-    subprocess.check_call(['git', 'init'])
-    subprocess.check_call(['git', 'submodule', 'add', 'https://github.com/yztxwd/snakemake-pipeline-general'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.check_call(['cat', 'snakemake-pipeline-general/config.yaml'])
+    cookiecutter(
+        'https://github.com/yztxwd/snakemake-pipeline-general.git',
+    )
+    
+
+    
+    
 
 if __name__ == '__main__':
     main()
