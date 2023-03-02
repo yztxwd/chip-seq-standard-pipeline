@@ -3,6 +3,7 @@
     "directory_name": "chip-seq-standard-pipeline",
     "mode": ["tf", "histone"],
     "macs2_gsize": "mm",
+    "idr": "",
     "_copy_without_render": [
         "*.smk",
         "*Snakefile"
