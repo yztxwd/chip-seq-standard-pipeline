@@ -7,9 +7,9 @@ def main():
         shutil.copyfileobj(fi, fo)
     
     # init the git
-    subprocess.check_call(['git', 'init'])
-    subprocess.check_call(['git', 'add', '.'])
-    subprocess.check_call(['git', 'commit', '-m', '"first commit"'])
+    subprocess.check_call(['git', 'init'], stdout=subprocess.DEVNULL)
+    subprocess.check_call(['git', 'add', '.'], stdout=subprocess.DEVNULL)
+    subprocess.check_call(['git', 'commit', '-m', '"first commit"'], stdout=subprocess.DEVNULL)
 
 if __name__ == '__main__':
     main()
