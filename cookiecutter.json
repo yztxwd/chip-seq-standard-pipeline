@@ -6,5 +6,5 @@
     "_copy_without_render": [
         "*.smk",
         "*Snakefile"
-    ],
+    ]
 }
