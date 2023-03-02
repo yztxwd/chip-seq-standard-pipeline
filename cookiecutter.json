@@ -1,43 +1,7 @@
 {
     " ": "Welcome!]\n\n_________ .__    ._____________            ____________________________   \n\\_   ___ \\|  |__ |   \\______   \\          /   _____/\\_   _____/\\_____  \\  \n/    \\  \\/|  |  \\|   ||     ___/  ______  \\_____  \\  |    __)_  /  / \\  \\ \n\\     \\___|   Y  \\   ||    |     /_____/  /        \\ |        \\/   \\_/.  \\\n \\______  /___|  /___||____|             /_______  //_______  /\\_____\\ \\_/\n        \\/     \\/                                \\/         \\/        \\__>\n\nSnakemake Pipeline for ChIP-seq like data\nAuthor: Jianyu Yang, Pennsylvania State University\n[Please press enter to continue",
     "directory_name": "chip-seq-standard-pipeline",
-<<<<<<< HEAD
-    "aligner": [
-        "bowtie2",
-        "bwa"
-    ],
-    "skiptrim": [
-        false,
-        true
-    ],
-    "trimmer": [
-        "trimmomatic",
-        "fastp"
-    ],
-    "nodes": 1,
-    "threads": 20,
-    "mem": 32,
-    "pe_adapter": "path/to/PE/adapter",
-    "se_adapter": "path/to/SE/adapter",
-    "fastp": "-g is suggested to handle poly-G issue on new sequencer",
-    "bowtie2_index": "path/to/bowtie2/index",
-    "bowtie2": "",
-    "bwa_index": "path/to/bwa/index",
-    "bwa_mem": "",
-    "skipfilter": [
-        true,
-        false
-    ],
-    "genome_fai": "path/to/genome/fai",
-    "mode": [
-        "tf",
-        "histone"
-    ],
-    "bamCoverage_pe": "--extendReads",
-    "bamCoverage_se": "--extendReads 200",
-=======
     "mode": ["tf", "histone"],
->>>>>>> improve-integrateGeneralPipelineConfig
     "macs2_gsize": "mm",
     "_copy_without_render": [
         "*.smk",
