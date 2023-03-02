@@ -1,7 +1,7 @@
 {
     " ": "Welcome!]\n\n_________ .__    ._____________            ____________________________   \n\\_   ___ \\|  |__ |   \\______   \\          /   _____/\\_   _____/\\_____  \\  \n/    \\  \\/|  |  \\|   ||     ___/  ______  \\_____  \\  |    __)_  /  / \\  \\ \n\\     \\___|   Y  \\   ||    |     /_____/  /        \\ |        \\/   \\_/.  \\\n \\______  /___|  /___||____|             /_______  //_______  /\\_____\\ \\_/\n        \\/     \\/                                \\/         \\/        \\__>\n\nSnakemake Pipeline for ChIP-seq like data\nAuthor: Jianyu Yang, Pennsylvania State University\n[Please press enter to continue",
     "directory_name": "chip-seq-standard-pipeline",
-    "model": ["tf", "histone"],
+    "mode": ["tf", "histone"],
     "macs2_gsize": "mm",
     "_copy_without_render": [
         "*.smk",
