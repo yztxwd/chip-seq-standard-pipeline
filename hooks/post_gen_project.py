@@ -11,6 +11,7 @@ def main():
     
     # include rules into Snakefile
     with open('Snakefile', 'a') as f:
+        f.write('\n')
         for rule in os.listdir(f'{CHILD_DIR}/rules'):
             f.write(f'include: "{CHILD_DIR}/rules/{rule}"\n')
         for rule in os.listdir('./rules'):
